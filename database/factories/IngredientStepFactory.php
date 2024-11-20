@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Ingredient;
+use App\Models\Step;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,15 +11,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class IngredientStepFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    public function definition()
     {
         return [
-            //
+            'step_id' => Step::factory(),
+            'ingredient_id' => Ingredient::factory(),
+            'amount' => $this->faker->randomFloat(2, 0.1, 10),
         ];
     }
 }

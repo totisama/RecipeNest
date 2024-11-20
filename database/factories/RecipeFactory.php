@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,15 +10,14 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class RecipeFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
-            //
+            'title' => $this->faker->sentence,
+            'total_time' => $this->faker->numberBetween(10, 120),
+            'description' => $this->faker->paragraph,
+            'image' => $this->faker->imageUrl(),
+            'user_id' => User::factory(),
         ];
     }
 }
