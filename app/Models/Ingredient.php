@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ingredient extends Model
 {
-    /** @use HasFactory<\Database\Factories\IngredientFactory> */
     use HasFactory;
+
+    protected $fillable = ['name', 'image'];
+
+    public function steps()
+    {
+        return $this->belongsToMany(Step::class, 'ingredient_step')
+            ->withPivot('amount');
+    }
 }
