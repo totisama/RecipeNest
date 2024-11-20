@@ -9,7 +9,7 @@ class IngredientStep extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['step_id', 'ingredient_id', 'amount'];
+    protected $fillable = ['step_id', 'ingredient_id', 'amount', 'unit'];
 
     public function step()
     {

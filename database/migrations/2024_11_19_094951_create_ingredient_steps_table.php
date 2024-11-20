@@ -12,6 +12,7 @@ return new class extends Migration
             $table->foreignId('step_id')->constrained()->onDelete('cascade');
             $table->foreignId('ingredient_id')->constrained()->onDelete('cascade');
             $table->float('amount');
+            $table->string('unit');
         });
     }
 

@@ -14,6 +14,6 @@ class Ingredient extends Model
     public function steps()
     {
         return $this->belongsToMany(Step::class, 'ingredient_step')
-            ->withPivot('amount');
+            ->withPivot('amount', 'unit');
     }
 }
