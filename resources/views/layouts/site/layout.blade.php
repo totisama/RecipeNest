@@ -17,7 +17,7 @@
 <body class="font-sans antialiase h-full">
     <div class="min-h-full">
         <x-site-layout-menu />
-        <main>
+        <main class="bg-gray-200">
             <div class="mx-auto h-dvh max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                 {{ $slot }}
             </div>
