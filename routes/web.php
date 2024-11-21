@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', WelcomeController::class)->name('welcome');
+
+Route::get('recipes/{id}', [RecipeController::class, 'show'])->name('recipes.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
