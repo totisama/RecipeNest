@@ -16,6 +16,10 @@
                                 class="rounded-xl px-2 py-1 transition-all duration-300 ease-out hover:scale-105 hover:bg-gray-300">
                                 Home
                             </a>
+                            <a href="{{route('user.recipes.index')}}"
+                                class="rounded-xl px-2 py-1 transition-all duration-300 ease-out hover:scale-105 hover:bg-gray-300">
+                                My recipes
+                            </a>
                         </div>
                     </div>
                 </div>
