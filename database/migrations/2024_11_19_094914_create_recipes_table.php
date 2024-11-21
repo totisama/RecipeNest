@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('recipes', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->max(50);
             $table->integer('total_time')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
