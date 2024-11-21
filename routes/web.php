@@ -9,6 +9,10 @@ Route::get('/', WelcomeController::class)->name('welcome');
 
 Route::get('recipes/{id}', [RecipeController::class, 'show'])->name('recipes.show');
 
+Route::prefix('user')->middleware(['auth', 'verified'])->name('user.')->group(function () {
+    Route::resource('recipes', App\Http\Controllers\User\RecipeController::class);
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
