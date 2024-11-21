@@ -28,4 +28,13 @@ class Recipe extends Model
 
         return ($hours > 0 ? $hours.'h ' : '').($minutes > 0 ? $minutes.'m' : '');
     }
+
+    public function getIngredients()
+    {
+        $ingredients = $this->steps->map(function ($step) {
+            return $step->ingredients;
+        })->flatten();
+
+        return $ingredients;
+    }
 }
