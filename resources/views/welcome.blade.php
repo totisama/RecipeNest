@@ -8,10 +8,12 @@
                 <div class="h-full w-full flex flex-col justify-between">
                     <h2 class="text-[#5B3A1F] text-center font-bold text-base md:text-xl">{{ $recipe->title }}</h2>
                     <div class="px-3 flex flex-col">
-                        <small class="text-semibold text-[#B2794B] text-sm md:text-lg">Estimated time:
-                            {{$recipe->formatTime()}}</small>
-                        <small class="text-semibold text-[#B2794B] text-sm md:text-lg">Steps:
-                            {{count($recipe->steps)}}</small>
+                        <small class="text-semibold text-[#B2794B] text-sm md:text-lg">
+                            {{count($recipe->steps)}} steps
+                        </small>
+                        <small class="text-semibold text-[#B2794B] text-sm md:text-lg">
+                            Estimated time: {{$recipe->formatTime()}}
+                        </small>
                     </div>
                 </div>
             </a>
