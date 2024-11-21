@@ -20,4 +20,12 @@ class Recipe extends Model
     {
         return $this->hasMany(Step::class);
     }
+
+    public function formatTime()
+    {
+        $hours = floor($this->total_time / 60);
+        $minutes = $this->total_time % 60;
+
+        return ($hours > 0 ? $hours.'h ' : '').($minutes > 0 ? $minutes.'m' : '');
+    }
 }
