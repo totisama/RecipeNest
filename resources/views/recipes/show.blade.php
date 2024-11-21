@@ -1,13 +1,16 @@
 <x-site-layout>
     <x-back-button />
-    <div class="max-w-4xl mt-5 mx-auto px-6 md:mt-0">
+    <div class="max-w-4xl mt-5 mb-10 mx-auto px-6 md:mt-0">
         <h1 class="text-4xl font-bold text-center text-[#5B3A1F] mb-6">{{ $recipe->title }}</h1>
         <div class="flex justify-center mb-6">
             <img src="{{ $recipe->image }}" alt="{{ $recipe->title }} image" class="rounded-xl w-full max-w-md">
         </div>
-        <div class="mb-8">
+        <div class="mb-5">
             <p class="text-lg text-[#63462B]"><strong>Total Time:</strong> {{ $recipe->formatTime() }}</p>
             <p class="text-lg text-[#63462B]"><strong>Description:</strong> {{ $recipe->description }}</p>
+            <div class="mt-3">
+                <x-link mode="primary" href="#">Start Recipe</x-link>
+            </div>
         </div>
         <div class="mb-8">
             <h2 class="text-2xl font-semibold text-[#412913] mb-4">Steps</h2>
