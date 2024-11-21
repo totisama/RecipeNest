@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         $users->prepend($user);
 
         $recipes = Recipe::factory(10)->create([
-            'user_id' => fn() => $users->random()->id,
+            'user_id' => fn () => $users->random()->id,
         ]);
 
         $ingredients = Ingredient::factory(50)->create();
