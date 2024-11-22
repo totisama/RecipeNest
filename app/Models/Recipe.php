@@ -37,4 +37,13 @@ class Recipe extends Model
 
         return $ingredients;
     }
+
+    public function isAuthorized(User $user): void
+    {
+        $userId = $user->id;
+
+        if (! $userId || $this->user_id != $userId) {
+            abort(401);
+        }
+    }
 }
