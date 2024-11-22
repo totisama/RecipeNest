@@ -10,7 +10,10 @@
                     <div class="flex flex-col items-center gap-4 md:flex-row">
                         <img src="{{ $recipe->image }}" alt="{{ $recipe->title }}"
                             class="w-24 h-24 rounded-lg object-cover" />
-                        <h2 class="text-xl text-center font-semibold text-[#5B3A1F]">{{ $recipe->title }}</h2>
+                        <a href="{{route('recipes.show', $recipe->id)}}"
+                            class="transition-all duration-300 ease-out hover:scale-105">
+                            <h2 class="text-xl text-center font-semibold text-[#5B3A1F]">{{ $recipe->title }}</h2>
+                        </a>
                     </div>
                     <div class="flex gap-4 mt-5 md:mt-0">
                         <x-link mode="primary" href="{{ route('user.recipes.edit', $recipe->id) }}">Edit</x-link>
