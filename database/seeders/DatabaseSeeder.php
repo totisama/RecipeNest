@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'password' => '$2y$12$nJT5MdPhGzDqNZFfbjxCL.gROd37N0Y/f6mSx7dxV67Uju5Jtza/S',
         ]);
 
-        $users = User::factory(5)->create();
+        $users = User::factory(1)->create();
 
         $users->prepend($user);
 
