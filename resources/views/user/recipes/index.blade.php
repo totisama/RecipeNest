@@ -3,6 +3,22 @@
         <h1 class="text-4xl font-bold text-center text-[#5B3A1F] mb-6">
             My Recipes
         </h1>
+        @if(session()->has('success'))
+            <div class="flex justify-between mb-2">
+                <div class="w-fitpx-3 py-1 text-base font-medium rounded-lg bg-green-300 text-green-900 p-2">
+                    {!! session()->get('success') !!}
+                </div>
+                <x-link mode="primary" href="{{ route('user.recipes.create') }}">
+                    New recipe
+                </x-link>
+            </div>
+        @else
+            <div class="flex justify-end mb-2">
+                <x-link mode="primary" href="{{ route('user.recipes.create') }}">
+                    New recipe
+                </x-link>
+            </div>
+        @endif
         <div class="space-y-4 bg-white rounded-xl">
             @foreach ($recipes as $recipe)
                 <div
@@ -17,7 +33,7 @@
                         </a>
                     </div>
                     <div class="flex gap-4 mt-5 md:mt-0">
-                        <x-link mode="primary" href="{{ route('user.recipes.edit', $recipe->id) }}">Edit</x-link>
+                        <x-link mode="secondary" href="{{ route('user.recipes.edit', $recipe->id) }}">Edit</x-link>
                         <form action="{{ route('user.recipes.destroy', $recipe->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
