@@ -70,6 +70,14 @@ class RecipeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $recipe = Recipe::findOrFail($id);
+
+        $recipe->isAuthorized(auth()->user());
+
+        $recipe->delete();
+
+        session()->flash('success', 'Article deleted successfully!');
+
+        return redirect()->route('user.recipes.index');
     }
 }
