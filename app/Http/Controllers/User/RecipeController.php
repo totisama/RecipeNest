@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Recipe;
 use Illuminate\Http\Request;
 
 class RecipeController extends Controller
@@ -12,7 +13,16 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        dd('index');
+        $user = auth()->user();
+        $userId = $user->id;
+
+        if (! $userId) {
+            abort(401);
+        }
+
+        $recipes = Recipe::where('user_id', $userId)->get();
+
+        return view('user.recipes.index', compact('recipes'));
     }
 
     /**
