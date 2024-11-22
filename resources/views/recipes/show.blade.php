@@ -3,7 +3,7 @@
     <div class="max-w-4xl mt-5 mb-10 mx-auto px-6 md:mt-0">
         <h1 class="text-4xl font-bold text-center text-[#5B3A1F] mb-6">{{ $recipe->title }}</h1>
         <div class="flex justify-center mb-6">
-            <img src="{{ $recipe->image }}" alt="{{ $recipe->title }} image" class="rounded-xl w-full max-w-md">
+            <img src="{{ $recipe->image }}" alt="{{ $recipe->title }} image" class="rounded-xl w-full max-w-md" />
         </div>
         <div class="mb-5">
             <p class="text-lg text-[#63462B]"><strong>Total Time:</strong> {{ $recipe->formatTime() }}</p>
@@ -29,7 +29,7 @@
                 @foreach ($recipe->getIngredients() as $ingredient)
                     <div class="flex flex-col items-center">
                         <img src="{{ $ingredient->image }}" alt="{{ $ingredient->name }} image"
-                            class="rounded-full w-20 h-20">
+                            class="rounded-full w-20 h-20" />
                         <strong class="text-center text-[#5B3A1F] font-bold">{{ $ingredient->name }}</strong>
                         <small class="text-center text-[#5B3A1F] font-semibold">{{ $ingredient->pivot->amount }}
                             {{ $ingredient->pivot->unit }}
