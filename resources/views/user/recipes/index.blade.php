@@ -5,7 +5,7 @@
         </h1>
         @if(session()->has('success'))
             <div class="flex justify-between mb-2">
-                <div class="w-fitpx-3 py-1 text-base font-medium rounded-lg bg-green-300 text-green-900 p-2">
+                <div class="w-2/5 px-3 py-1 text-base text-center font-medium rounded-lg bg-green-300 text-green-900 p-2">
                     {!! session()->get('success') !!}
                 </div>
                 <x-link mode="primary" href="{{ route('user.recipes.create') }}">
