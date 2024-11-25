@@ -10,11 +10,9 @@
             <x-form-text name="name" label="Name" />
             <x-form-textarea name="content" label="Content" />
 
-            <div class="w-full flex justify-end gap-x-8">
-                <button type="submit"
-                    class="text-xs text-green-700 bg-green-300 hover:bg-green-200 px-4 py-2 rounded uppercase">Create</button>
-                <a class="text-xs text-gray-700 bg-gray-300 hover:bg-gray-200 px-4 py-2 rounded uppercase"
-                    href="{{route('user.ingredients.index')}}">Back</a>
+            <div class="w-full flex justify-end gap-x-4">
+                <x-link mode="secondary" href="{{ route('user.ingredients.index') }}">Back</x-link>
+                <x-button mode="primary" type="submit">Create</x-button>
             </div>
         </form>
     </div>
