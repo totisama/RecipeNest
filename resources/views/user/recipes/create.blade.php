@@ -14,32 +14,12 @@
             <x-form-textarea name="description" label="Description" />
 
             <div class="px-5">
-                <div class="flex gap-3">
+                <div class="flex gap-3 mb-5">
                     <h2 class="text-2xl font-semibold">Steps</h2>
                     <x-button mode="secondary" id="add-step">+</x-button>
                 </div>
 
                 <div class="space-y-5 pb-5 px-5 max-h-[500px] overflow-y-scroll" id="steps-container">
-                    <!-- <div>
-                        <strong>
-                            Step 1
-                        </strong>
-                        <div class="flex flex-col gap-2">
-                            <x-form-text name="step1-title" label="Title" />
-                            <x-form-textarea name="step1-description" label="Description" />
-                        </div>
-                        <div class="mt-2">
-                            <div class="flex gap-3">
-                                <h2 class="text-xl font-semibold">Ingredients</h2>
-                                <x-button mode="secondary" id="step1-add-ingredient">+</x-button>
-                            </div>
-                            <div id="step1-ingredients-container" class="w-full flex gap-3">
-                                <x-form-select name="step1-ingredient1" label="Ingredients" :options="$ingredients" />
-                                <x-form-number name="step1-ingredient1-amount" label="Amount" />
-                                <x-form-select name="step1-ingredient1-unit" label="Unit" :options="$units" />
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
 
                 <div class="w-full mt-5 flex justify-end gap-x-4">
@@ -59,6 +39,13 @@
         element.scrollTo({
             top: element.scrollHeight,
             behavior: 'smooth',
+        });
+    };
+
+    const scrollToElement = (element) => {
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
         });
     };
 
@@ -82,6 +69,9 @@
             `;
 
             ingredientsContainer.appendChild(newIngredientDiv);
+
+
+            scrollToElement(newIngredientDiv);
         };
 
         const addStep = () => {
@@ -121,16 +111,14 @@
 
                 const step = addIngredientButton.getAttribute('data-step')
                 addIngredient(step);
-
-                scrollToBottom(stepsContainer)
             });
+
+            scrollToBottom(stepsContainer);
         };
 
         addStepButton.addEventListener('click', (e) => {
             e.preventDefault();
             addStep();
-
-            scrollToBottom(stepsContainer)
         });
 
         const initialAddIngredientButton = document.getElementById('step1-add-ingredient');
