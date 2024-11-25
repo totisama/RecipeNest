@@ -1,5 +1,5 @@
-<x-site-layout title="My Recipes">
-    <div class="max-w-6xl mx-auto p-6">
+<x-site-layout>
+    <div class="max-w-6xl mx-auto">
         <h1 class="text-4xl font-bold text-center text-[#5B3A1F] mb-6">
             My Recipes
         </h1>

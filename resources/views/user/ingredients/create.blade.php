@@ -4,7 +4,7 @@
             New ingredient
         </h1>
         <form action="{{route('user.ingredients.store')}}" method="post"
-            class="w-2/3 bg-white border border-gray-300 p-4">
+            class="w-2/3 bg-white space-y-5 rounded-xl border border-gray-300 p-4">
             @csrf
 
             <x-form-text name="name" label="Name" />
