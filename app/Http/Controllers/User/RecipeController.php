@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class RecipeController extends Controller
 {
@@ -34,9 +35,10 @@ class RecipeController extends Controller
         $ingredients = Ingredient::all()->sortBy('name');
 
         $ingredients = $ingredients->map(function ($ingredient) {
-            return $ingredient->name;
+            return ['value' => $ingredient->id, 'label' => $ingredient->name];
         });
-        $units = Ingredient::getUnits();
+
+        $units = Ingredient::getUnitsValueLabel();
 
         return view('user.recipes.create', compact(['ingredients', 'units']));
     }
@@ -46,7 +48,67 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $units = Ingredient::getUnits();
+        $input = $request->all();
+        $rules = [];
+        $steps = [];
+
+        foreach ($input as $key => $value) {
+            if (preg_match('/step(\d+)-(.+)/', $key, $matches)) {
+                $stepNumber = $matches[1];
+                $fieldType = $matches[2];
+
+                if (! isset($steps[$stepNumber])) {
+                    $steps[$stepNumber] = [
+                        'title' => null,
+                        'description' => null,
+                        'ingredients' => [],
+                    ];
+                }
+
+                if ($fieldType === 'title') {
+                    $steps[$stepNumber]['title'] = $value;
+                } elseif ($fieldType === 'description') {
+                    $steps[$stepNumber]['description'] = $value;
+                } elseif (preg_match('/ingredient(\d+)/', $fieldType, $ingredientMatches)) {
+                    $ingredientNumber = $ingredientMatches[1];
+                    $ingredientKey = str_replace("ingredient$ingredientNumber-", '', $fieldType);
+
+                    if (! isset($steps[$stepNumber]['ingredients'][$ingredientNumber])) {
+                        $steps[$stepNumber]['ingredients'][$ingredientNumber] = [
+                            'id' => null,
+                            'amount' => null,
+                            'unit' => null,
+                        ];
+                    }
+
+                    if ($ingredientKey === 'id') {
+                        $steps[$stepNumber]['ingredients'][$ingredientNumber]['id'] = $value;
+                    } elseif ($ingredientKey === 'amount') {
+                        $steps[$stepNumber]['ingredients'][$ingredientNumber]['amount'] = $value;
+                    } elseif ($ingredientKey === 'unit') {
+                        $steps[$stepNumber]['ingredients'][$ingredientNumber]['unit'] = $value;
+                    }
+                }
+            }
+        }
+
+        foreach ($input as $key => $value) {
+            $defaultRule = ['required', 'string'];
+
+            if ($key === '_token') {
+                continue;
+            } elseif (str_contains($key, 'amount') || $key === 'total_time') {
+                $defaultRule[1] = 'number';
+            } elseif (str_contains($key, 'unit')) {
+                array_push($defaultRule, Rule::in($units));
+            }
+
+            $rules[$key] = $defaultRule;
+        }
+        dd($steps);
+
+        $request->validate($rules);
     }
 
     /**
