@@ -22,4 +22,16 @@ class Ingredient extends Model
     {
         return collect(['grams', 'kilograms', 'liters', 'milliliters', 'pounds', 'ounces']);
     }
+
+    public static function getUnitsValueLabel()
+    {
+        return collect([
+            ['value' => 'grams', 'label' => 'Grams'],
+            ['value' => 'kilograms', 'label' => 'Kilograms'],
+            ['value' => 'liters', 'label' => 'Liters'],
+            ['value' => 'milliliters', 'label' => 'Milliliters'],
+            ['value' => 'pounds', 'label' => 'Pounds'],
+            ['value' => 'ounces', 'label' => 'Ounces']
+        ]);
+    }
 }
