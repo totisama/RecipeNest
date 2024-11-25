@@ -9,13 +9,13 @@
                     {!! session()->get('success') !!}
                 </div>
                 <x-link mode="primary" href="{{ route('user.recipes.create') }}">
-                    New recipe
+                    Create recipe
                 </x-link>
             </div>
         @else
             <div class="flex justify-end mb-2">
                 <x-link mode="primary" href="{{ route('user.recipes.create') }}">
-                    New recipe
+                    Create recipe
                 </x-link>
             </div>
         @endif

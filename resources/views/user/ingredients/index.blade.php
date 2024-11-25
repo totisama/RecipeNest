@@ -1,11 +1,11 @@
 <x-site-layout>
-    <h1 class="text-4xl font-bold text-center text-[#5B3A1F] mt-5">
+    <h1 class="text-4xl font-bold text-center text-[#5B3A1F]">
         Ingredients
     </h1>
     <div class="w-full flex justify-end">
         @if(auth()->user() !== null)
             <x-link mode="secondary" href="{{ route('user.ingredients.create') }}">
-                New ingredient
+                Create ingredient
             </x-link>
         @endif
     </div>
