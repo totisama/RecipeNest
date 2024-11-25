@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ingredient;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,14 @@ class RecipeController extends Controller
      */
     public function create()
     {
-        return view('user.recipes.create');
+        $ingredients = Ingredient::all()->sortBy('name');
+
+        $ingredients = $ingredients->map(function ($ingredient) {
+            return $ingredient->name;
+        });
+        $units = Ingredient::getUnits();
+
+        return view('user.recipes.create', compact(['ingredients', 'units']));
     }
 
     /**
