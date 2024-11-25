@@ -38,7 +38,6 @@ class IngredientController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         $request->validate([
             'name' => ['required', 'string', 'max:100'],
         ]);
@@ -51,6 +50,7 @@ class IngredientController extends Controller
 
         Ingredient::create([
             'name' => $request->name,
+            'image' => fake()->imageUrl(),
         ]);
 
         return redirect()->route('user.ingredients.index');
