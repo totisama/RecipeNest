@@ -31,7 +31,7 @@ class Ingredient extends Model
             ['value' => 'liters', 'label' => 'Liters'],
             ['value' => 'milliliters', 'label' => 'Milliliters'],
             ['value' => 'pounds', 'label' => 'Pounds'],
-            ['value' => 'ounces', 'label' => 'Ounces']
+            ['value' => 'ounces', 'label' => 'Ounces'],
         ]);
     }
 }
