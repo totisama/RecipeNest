@@ -10,7 +10,7 @@
         @endif
     </div>
     <div style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));"
-        class="mt-5 mb-10 grid gap-x-8 gap-y-6 place-items-center">
+        class="mt-3 mb-10 grid gap-x-8 gap-y-6 place-items-center">
         @foreach ($ingredients as $ingredient)
             <article
                 class="group h-auto overflow-hidden select-none pb-3 flex flex-col items-center gap-4 bg-white w-full px-5 rounded-3xl transition-transform duration-300 ease-out hover:scale-105">

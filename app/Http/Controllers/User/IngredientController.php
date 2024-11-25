@@ -20,7 +20,7 @@ class IngredientController extends Controller
             abort(401);
         }
 
-        $ingredients = Ingredient::all();
+        $ingredients = Ingredient::all()->sortBy('name');
 
         return view('user.ingredients.index', compact('ingredients'));
     }
@@ -30,7 +30,7 @@ class IngredientController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.ingredients.create');
     }
 
     /**
@@ -38,7 +38,22 @@ class IngredientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
+        $request->validate([
+            'name' => ['required', 'string', 'max:100'],
+        ]);
+
+        $userId = auth()->user()->id;
+
+        if (! $userId) {
+            abort(401);
+        }
+
+        Ingredient::create([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('user.ingredients.index');
     }
 
     /**
