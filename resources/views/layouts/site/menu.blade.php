@@ -15,12 +15,18 @@
                         <div class="ml-10 flex items-baseline space-x-4">
                             <a href="{{route('welcome')}}"
                                 class="rounded-xl px-2 py-1 transition-all duration-300 ease-out hover:scale-105 hover:bg-gray-300">
-                                Home
+                                Recipes
                             </a>
-                            <a href="{{route('user.recipes.index')}}"
-                                class="rounded-xl px-2 py-1 transition-all duration-300 ease-out hover:scale-105 hover:bg-gray-300">
-                                My recipes
-                            </a>
+                            @if(auth()->user() !== null)
+                                <a href="{{route('user.ingredients.index')}}"
+                                    class="rounded-xl px-2 py-1 transition-all duration-300 ease-out hover:scale-105 hover:bg-gray-300">
+                                    Ingredients
+                                </a>
+                                <a href="{{route('user.recipes.index')}}"
+                                    class="rounded-xl px-2 py-1 transition-all duration-300 ease-out hover:scale-105 hover:bg-gray-300">
+                                    My recipes
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -59,13 +65,18 @@
                                     @csrf
 
                                     <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
-                                                        this.closest('form').submit();">
+                                                this.closest('form').submit();">
                                         {{ __('Log Out') }}
                                     </x-dropdown-link>
                                 </form>
                             </x-slot>
                         </x-dropdown>
                     </div>
+                @else
+                    <a href="{{route('login')}}"
+                        class="rounded-xl px-2 py-1 transition-all duration-300 ease-out hover:scale-105 hover:bg-gray-300">
+                        Log in
+                    </a>
                 @endif
             </div>
         </div>
