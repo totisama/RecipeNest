@@ -10,6 +10,8 @@ class WelcomeController extends Controller
     {
         $recipes = Recipe::all();
 
+        $recipes->load('steps');
+
         return view('welcome')->with('recipes', $recipes);
     }
 }
