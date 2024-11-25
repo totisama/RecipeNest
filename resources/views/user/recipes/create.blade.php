@@ -100,7 +100,7 @@
                     <div class="mt-2">
                         <div class="flex gap-3">
                             <h2 class="text-xl font-semibold">Ingredients</h2>
-                            <x-button mode="secondary" id="step${stepsAmount}-add-ingredient">+</x-button>
+                            <x-button mode="secondary" data-step="${stepsAmount}" id="step${stepsAmount}-add-ingredient">+</x-button>
                         </div>
                         <div id="step${stepsAmount}-ingredients-container" class="w-full flex flex-col gap-3">
                             <div class="w-full flex gap-3">
@@ -118,7 +118,9 @@
             const addIngredientButton = document.getElementById(`step${stepsAmount}-add-ingredient`);
             addIngredientButton.addEventListener('click', (e) => {
                 e.preventDefault();
-                addIngredient(stepsAmount);
+
+                const step = addIngredientButton.getAttribute('data-step')
+                addIngredient(step);
 
                 scrollToBottom(stepsContainer)
             });
