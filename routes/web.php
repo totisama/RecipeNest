@@ -11,6 +11,7 @@ Route::get('recipes/{id}', [RecipeController::class, 'show'])->name('recipes.sho
 
 Route::prefix('user')->middleware(['auth', 'verified'])->name('user.')->group(function () {
     Route::resource('recipes', App\Http\Controllers\User\RecipeController::class);
+    Route::resource('ingredients', App\Http\Controllers\User\IngredientController::class);
 });
 
 Route::get('/dashboard', function () {
