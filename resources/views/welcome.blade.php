@@ -1,4 +1,7 @@
 <x-site-layout>
+    <h1 class="text-4xl font-bold text-center text-[#5B3A1F]">
+        Recipes
+    </h1>
     <div class="my-10 grid grid-cols-2 gap-x-8 gap-y-6 place-items-center md:grid-cols-3">
         @foreach ($recipes as $recipe)
             <a href="{{route('recipes.show', [$recipe->id])}}"
