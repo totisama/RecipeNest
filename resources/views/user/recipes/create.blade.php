@@ -62,7 +62,7 @@
             newIngredientDiv.className = 'w-full flex gap-3';
             newIngredientDiv.innerHTML = `
                 <div class="w-full flex gap-3">
-                    <x-form-select name="step${stepNumber}-ingredient${ingredientCount}" label="Ingredient ${ingredientCount}" :options="$ingredients" />
+                    <x-form-select name="step${stepNumber}-ingredient${ingredientCount}-id" label="Ingredient ${ingredientCount}" :options="$ingredients" />
                     <x-form-number name="step${stepNumber}-ingredient${ingredientCount}-amount" label="Amount" />
                     <x-form-select name="step${stepNumber}-ingredient${ingredientCount}-unit" label="Unit" :options="$units" />
                 </div>
@@ -94,7 +94,7 @@
                         </div>
                         <div id="step${stepsAmount}-ingredients-container" class="w-full flex flex-col gap-3">
                             <div class="w-full flex gap-3">
-                                <x-form-select name="step${stepsAmount}-ingredient1" label="Ingredient 1" :options="$ingredients" />
+                                <x-form-select name="step${stepsAmount}-ingredient1-id" label="Ingredient 1" :options="$ingredients" />
                                 <x-form-number name="step${stepsAmount}-ingredient1-amount" label="Amount" />
                                 <x-form-select name="step${stepsAmount}-ingredient1-unit" label="Unit" :options="$units" />
                             </div>
