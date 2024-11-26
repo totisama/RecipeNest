@@ -73,7 +73,6 @@ class RecipeController extends Controller
                 'description' => $value['description'],
                 'order' => $key,
                 'recipe_id' => $recipe->id,
-                'image' => fake()->imageUrl(),
             ]);
 
             foreach ($value['ingredients'] as $ingredient) {
