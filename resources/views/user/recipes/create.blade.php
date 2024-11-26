@@ -1,3 +1,7 @@
+<?php
+$comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : 0
+?>
+
 <x-site-layout>
     <div class="w-full flex flex-col items-center gap-5">
         <h1 class="text-4xl font-bold text-center text-[#5B3A1F]">
@@ -20,6 +24,34 @@
                 </div>
 
                 <div class="space-y-5 pb-5 px-5 max-h-[500px] overflow-y-scroll" id="steps-container">
+                    @for ($index = 0; $index < $comingStepsAmount; $index++)
+                        <div>
+                            <strong>
+                                Step {{$index + 1}}
+                            </strong>
+                            <div class="flex flex-col gap-2">
+                                <x-form-text name="step{{$index + 1}}-title" label="Title" />
+                                <x-form-textarea name="step{{$index + 1}}-description" label="Description" />
+                            </div>
+                            <div class="mt-2">
+                                <div class="flex gap-3">
+                                    <h2 class="text-xl font-semibold">Ingredients</h2>
+                                    <x-button mode="secondary" data-step="{{$index + 1}}"
+                                        id="step{{$index + 1}}-add-ingredient">+
+                                    </x-button>
+                                </div>
+                                <div id="step{{$index + 1}}-ingredients-container" class="w-full flex flex-col gap-3">
+                                    <div class="w-full flex gap-3">
+                                        <x-form-select name="step{{$index + 1}}-ingredient1-id" label="Ingredient 1"
+                                            :options="$ingredients" />
+                                        <x-form-number name="step{{$index + 1}}-ingredient1-amount" label="Amount" />
+                                        <x-form-select name="step{{$index + 1}}-ingredient1-unit" label="Unit"
+                                            :options="$units" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endfor
                 </div>
 
                 <div class="w-full mt-5 flex justify-end gap-x-4">
@@ -34,6 +66,7 @@
 <script>
     const ingredients = @json($ingredients);
     const units = @json($units);
+    const comingStepsAmount = @json($comingStepsAmount);
 
     const scrollToBottom = (element) => {
         element.scrollTo({
@@ -52,7 +85,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         const stepsContainer = document.getElementById('steps-container');
         const addStepButton = document.getElementById('add-step');
-        let stepsAmount = 0;
+        let stepsAmount = comingStepsAmount;
 
         const addIngredient = (stepNumber) => {
             const ingredientsContainer = document.getElementById(`step${stepNumber}-ingredients-container`);
@@ -129,6 +162,8 @@
             });
         }
 
-        addStep();
+        if (comingStepsAmount === 0) {
+            addStep();
+        }
     });
 </script>
