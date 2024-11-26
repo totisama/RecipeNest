@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Ingredient;
 use App\Models\Recipe;
+use App\Models\Step;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -114,7 +115,38 @@ class RecipeController extends Controller
             }
         }
 
+        session()->flash('stepsAmount', $steps);
+
         $request->validate($rules);
+
+        $recipe = Recipe::create([
+            'title' => $request->title,
+            'total_time' => $request->total_time,
+            'description' => $request->description,
+            'user_id' => $userId,
+            'image' => fake()->imageUrl(),
+        ]);
+
+        foreach ($steps as $key => $value) {
+            $step = Step::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'order' => $key,
+                'recipe_id' => $recipe->id,
+                'image' => fake()->imageUrl(),
+            ]);
+
+            foreach ($value['ingredients'] as $ingredient) {
+                $step->ingredients()->attach($ingredient['id'], [
+                    'amount' => $ingredient['amount'],
+                    'unit' => $ingredient['unit'],
+                ]);
+            }
+        }
+
+        session()->flash('success', 'Recipe created successfully!');
+
+        return redirect()->route('user.recipe.index');
     }
 
     /**
