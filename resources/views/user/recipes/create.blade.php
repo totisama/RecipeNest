@@ -91,7 +91,29 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : 0
     document.addEventListener('DOMContentLoaded', () => {
         const stepsContainer = document.getElementById('steps-container');
         const addStepButton = document.getElementById('add-step');
-        let stepsAmount = typeof comingStepsAmount === 'object' ? Object.keys(comingStepsAmount).length : 0;
+        let stepsAmount = 0;
+
+        const addEventToExistingAddIngredientButtons = (stepsAmount) => {
+            // if there is only one step, his add ingredient button has already an event listener
+            if (stepsAmount <= 1) {
+                return;
+            }
+
+            for (let i = 2; i <= stepsAmount; i++) {
+                const addIngredientButton = document.getElementById(`step${i}-add-ingredient`);
+                addIngredientButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    addIngredient(i);
+                });
+            }
+        }
+
+        if (typeof comingStepsAmount === 'object') {
+            stepsAmount = Object.keys(comingStepsAmount).length
+
+            addEventToExistingAddIngredientButtons(stepsAmount);
+        }
 
         const addIngredient = (stepNumber) => {
             const ingredientsContainer = document.getElementById(`step${stepNumber}-ingredients-container`);
