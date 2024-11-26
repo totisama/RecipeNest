@@ -146,7 +146,7 @@ class RecipeController extends Controller
 
         session()->flash('success', 'Recipe created successfully!');
 
-        return redirect()->route('user.recipe.index');
+        return redirect()->route('user.recipes.index');
     }
 
     /**
