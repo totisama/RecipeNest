@@ -182,6 +182,12 @@ class RecipeController extends Controller
                     'description' => $value['description'],
                 ]);
 
+                $currentIngredientIds = $step->ingredients()->pluck('id')->toArray();
+                $newIngredientIds = array_column($value['ingredients'], 'id');
+
+                $ingredientsToDetach = array_diff($currentIngredientIds, $newIngredientIds);
+                $step->ingredients()->detach($ingredientsToDetach);
+
                 foreach ($value['ingredients'] as $ingredient) {
                     $step->ingredients()->syncWithoutDetaching([
                         $ingredient['id'] => [
