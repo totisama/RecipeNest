@@ -33,12 +33,7 @@ class RecipeController extends Controller
      */
     public function create()
     {
-        $ingredients = Ingredient::all()->sortBy('name');
-
-        $ingredients = $ingredients->map(function ($ingredient) {
-            return ['value' => $ingredient->id, 'label' => $ingredient->name];
-        });
-
+        $ingredients = Ingredient::getAllIngredientsValueLabel();
         $units = Ingredient::getUnitsValueLabel();
 
         return view('user.recipes.create', compact(['ingredients', 'units']));
