@@ -48,6 +48,13 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
+        $user = auth()->user();
+        $userId = $user->id;
+
+        if (! $userId) {
+            abort(401);
+        }
+
         $units = Ingredient::getUnits();
         $input = $request->all();
         $rules = [];
