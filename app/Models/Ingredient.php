@@ -34,4 +34,15 @@ class Ingredient extends Model
             ['value' => 'ounces', 'label' => 'Ounces'],
         ]);
     }
+
+    public static function getAllIngredientsValueLabel()
+    {
+        $ingredients = Ingredient::all()->sortBy('name');
+
+        $ingredients = $ingredients->map(function ($ingredient) {
+            return ['value' => $ingredient->id, 'label' => $ingredient->name];
+        });
+
+        return $ingredients;
+    }
 }
