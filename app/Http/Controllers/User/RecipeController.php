@@ -124,8 +124,8 @@ class RecipeController extends Controller
 
         foreach ($steps as $key => $value) {
             $step = Step::create([
-                'title' => $request->title,
-                'description' => $request->description,
+                'title' => $value['title'],
+                'description' => $value['description'],
                 'order' => $key,
                 'recipe_id' => $recipe->id,
                 'image' => fake()->imageUrl(),
