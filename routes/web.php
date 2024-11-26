@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', WelcomeController::class)->name('welcome');
 
 Route::get('recipes/{id}', [RecipeController::class, 'show'])->name('recipes.show');
+Route::get('recipes/{id}/start', [RecipeController::class, 'start'])->name('recipes.start');
 
 Route::prefix('user')->middleware(['auth', 'verified'])->name('user.')->group(function () {
     Route::resource('recipes', App\Http\Controllers\User\RecipeController::class);

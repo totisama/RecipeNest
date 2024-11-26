@@ -9,7 +9,7 @@
             <p class="text-lg text-[#63462B]"><strong>Total Time:</strong> {{ $recipe->formatTime() }}</p>
             <p class="text-lg text-[#63462B]"><strong>Description:</strong> {{ $recipe->description }}</p>
             <div class="mt-3">
-                <x-link mode="primary" href="#">Start Recipe</x-link>
+                <x-link mode="primary" href="{{route('recipes.start', $recipe)}}?step=1">Start Recipe</x-link>
             </div>
         </div>
         <div class="mb-8">
