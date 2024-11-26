@@ -24,34 +24,40 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : 0
                 </div>
 
                 <div class="space-y-5 pb-5 px-5 max-h-[500px] overflow-y-scroll" id="steps-container">
-                    @for ($index = 0; $index < $comingStepsAmount; $index++)
-                        <div>
-                            <strong>
-                                Step {{$index + 1}}
-                            </strong>
-                            <div class="flex flex-col gap-2">
-                                <x-form-text name="step{{$index + 1}}-title" label="Title" />
-                                <x-form-textarea name="step{{$index + 1}}-description" label="Description" />
-                            </div>
-                            <div class="mt-2">
-                                <div class="flex gap-3">
-                                    <h2 class="text-xl font-semibold">Ingredients</h2>
-                                    <x-button mode="secondary" data-step="{{$index + 1}}"
-                                        id="step{{$index + 1}}-add-ingredient">+
-                                    </x-button>
+                    @if(gettype($comingStepsAmount) === 'array' && count($comingStepsAmount) > 0)
+                        @foreach ($comingStepsAmount as $stepIndex => $step)
+                            <div>
+                                <strong>
+                                    Step {{$stepIndex}}
+                                </strong>
+                                <div class="flex flex-col gap-2">
+                                    <x-form-text name="step{{$stepIndex}}-title" label="Title" />
+                                    <x-form-textarea name="step{{$stepIndex}}-description" label="Description" />
                                 </div>
-                                <div id="step{{$index + 1}}-ingredients-container" class="w-full flex flex-col gap-3">
-                                    <div class="w-full flex gap-3">
-                                        <x-form-select name="step{{$index + 1}}-ingredient1-id" label="Ingredient 1"
-                                            :options="$ingredients" />
-                                        <x-form-number name="step{{$index + 1}}-ingredient1-amount" label="Amount" />
-                                        <x-form-select name="step{{$index + 1}}-ingredient1-unit" label="Unit"
-                                            :options="$units" />
+                                <div class="mt-2">
+                                    <div class="flex gap-3">
+                                        <h2 class="text-xl font-semibold">Ingredients</h2>
+                                        <x-button mode="secondary" data-step="{{$stepIndex}}"
+                                            id="step{{$stepIndex}}-add-ingredient">+
+                                        </x-button>
+                                    </div>
+                                    <div id="step{{$stepIndex}}-ingredients-container" class="w-full flex flex-col gap-3">
+                                        @foreach ($step['ingredients'] as $ingredientIndex => $ingredient)
+                                            <div class="w-full flex gap-3">
+                                                <x-form-select name="step{{$stepIndex}}-ingredient{{$ingredientIndex}}-id"
+                                                    label="Ingredient {{$ingredientIndex}}" :options="$ingredients"
+                                                    value="{{$ingredient['id']}}" />
+                                                <x-form-number name="step{{$stepIndex}}-ingredient{{$ingredientIndex}}-amount"
+                                                    label="Amount" />
+                                                <x-form-select name="step{{$stepIndex}}-ingredient{{$ingredientIndex}}-unit"
+                                                    label="Unit" :options="$units" value="{{$ingredient['unit']}}" />
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endfor
+                        @endforeach
+                    @endif
                 </div>
 
                 <div class="w-full mt-5 flex justify-end gap-x-4">
@@ -85,7 +91,7 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : 0
     document.addEventListener('DOMContentLoaded', () => {
         const stepsContainer = document.getElementById('steps-container');
         const addStepButton = document.getElementById('add-step');
-        let stepsAmount = comingStepsAmount;
+        let stepsAmount = typeof comingStepsAmount === 'object' ? Object.keys(comingStepsAmount).length : 0;
 
         const addIngredient = (stepNumber) => {
             const ingredientsContainer = document.getElementById(`step${stepNumber}-ingredients-container`);
