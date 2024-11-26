@@ -61,6 +61,20 @@ class RecipeController extends Controller
         $steps = [];
 
         foreach ($input as $key => $value) {
+            // Dynamic validations
+            $defaultRule = ['required', 'string'];
+
+            if ($key === '_token') {
+                continue;
+            } elseif (str_contains($key, 'amount') || $key === 'total_time') {
+                $defaultRule[1] = 'numeric';
+            } elseif (str_contains($key, 'unit')) {
+                array_push($defaultRule, Rule::in($units));
+            }
+
+            $rules[$key] = $defaultRule;
+
+            // Dynamic data structure
             if (preg_match('/step(\d+)-(.+)/', $key, $matches)) {
                 $stepNumber = $matches[1];
                 $fieldType = $matches[2];
@@ -99,21 +113,6 @@ class RecipeController extends Controller
                 }
             }
         }
-
-        foreach ($input as $key => $value) {
-            $defaultRule = ['required', 'string'];
-
-            if ($key === '_token') {
-                continue;
-            } elseif (str_contains($key, 'amount') || $key === 'total_time') {
-                $defaultRule[1] = 'number';
-            } elseif (str_contains($key, 'unit')) {
-                array_push($defaultRule, Rule::in($units));
-            }
-
-            $rules[$key] = $defaultRule;
-        }
-        dd($steps);
 
         $request->validate($rules);
     }
