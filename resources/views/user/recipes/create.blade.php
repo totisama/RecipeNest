@@ -128,5 +128,7 @@
                 addIngredient(1);
             });
         }
+
+        addStep();
     });
 </script>
