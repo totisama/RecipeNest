@@ -157,14 +157,9 @@ class RecipeController extends Controller
      */
     public function edit(string $id)
     {
-        $user = auth()->user();
-        $userId = $user->id;
-
-        if (! $userId) {
-            abort(401);
-        }
-
         $recipe = Recipe::find($id);
+        $recipe->isAuthorized(auth()->user());
+
         $steps = $recipe->steps->sortBy('order');
         $stepsObject = [];
 
@@ -209,12 +204,8 @@ class RecipeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $user = auth()->user();
-        $userId = $user->id;
-
-        if (! $userId) {
-            abort(401);
-        }
+        $recipe = Recipe::find($id);
+        $recipe->isAuthorized(auth()->user());
 
         $units = Ingredient::getUnits();
         $input = $request->all();
