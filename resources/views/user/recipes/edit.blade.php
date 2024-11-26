@@ -34,7 +34,7 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : $s
                                     Step {{$stepIndex}}
                                 </strong>
                                 <div class="flex flex-col gap-2">
-                                    <input class="hidden" value="{{$step['id']}}" name="step{{$stepIndex}}-id" />
+                                    <input class="hidden" value="{{$step['id'] ?? null}}" name="step{{$stepIndex}}-id" />
                                     <x-form-text value="{{$step['title']}}" name="step{{$stepIndex}}-title" label="Title" />
                                     <x-form-textarea value="{{$step['description']}}" name="step{{$stepIndex}}-description"
                                         label="Description" />
