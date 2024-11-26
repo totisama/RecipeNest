@@ -169,6 +169,8 @@ class RecipeController extends Controller
         $stepsObject = [];
 
         foreach ($steps as $stepKey => $step) {
+            $stepKey += 1;
+
             if (! isset($stepsObject[$stepKey])) {
                 $stepsObject[$stepKey] = [
                     'title' => $step->title,
@@ -181,6 +183,8 @@ class RecipeController extends Controller
             $ingredients = $step->ingredients;
 
             foreach ($ingredients as $ingredientKey => $ingredient) {
+                $ingredientKey += 1;
+
                 $stepsObject[$stepKey]['ingredients'][$ingredientKey] = [
                     'id' => $ingredient->id,
                     'amount' => $ingredient->pivot->amount,
