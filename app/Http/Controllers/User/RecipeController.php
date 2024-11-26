@@ -112,6 +112,7 @@ class RecipeController extends Controller
 
             if (! isset($stepsObject[$stepKey])) {
                 $stepsObject[$stepKey] = [
+                    'id' => $step->id,
                     'title' => $step->title,
                     'description' => $step->description,
                     'order' => $step->order,
@@ -203,13 +204,16 @@ class RecipeController extends Controller
 
                 if (! isset($steps[$stepNumber])) {
                     $steps[$stepNumber] = [
+                        'id' => null,
                         'title' => null,
                         'description' => null,
                         'ingredients' => [],
                     ];
                 }
 
-                if ($fieldType === 'title') {
+                if ($fieldType === 'id') {
+                    $steps[$stepNumber]['id'] = $value;
+                } elseif ($fieldType === 'title') {
                     $steps[$stepNumber]['title'] = $value;
                 } elseif ($fieldType === 'description') {
                     $steps[$stepNumber]['description'] = $value;
