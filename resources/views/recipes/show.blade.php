@@ -1,5 +1,5 @@
 <x-site-layout>
-    <x-back-button />
+    <x-back-button route="{{route('welcome')}}" />
     <div class="max-w-4xl mt-5 mb-10 mx-auto px-6 md:mt-0">
         <h1 class="text-4xl font-bold text-center text-[#5B3A1F] mb-6">{{ $recipe->title }}</h1>
         <div class="flex justify-center mb-6">
