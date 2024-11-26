@@ -157,7 +157,47 @@ class RecipeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = auth()->user();
+        $userId = $user->id;
+
+        if (! $userId) {
+            abort(401);
+        }
+
+        $recipe = Recipe::find($id);
+        $steps = $recipe->steps->sortBy('order');
+        $stepsObject = [];
+
+        foreach ($steps as $stepKey => $step) {
+            if (! isset($stepsObject[$stepKey])) {
+                $stepsObject[$stepKey] = [
+                    'title' => $step->title,
+                    'description' => $step->description,
+                    'order' => $step->order,
+                    'ingredients' => [],
+                ];
+            }
+
+            $ingredients = $step->ingredients;
+
+            foreach ($ingredients as $ingredientKey => $ingredient) {
+                $stepsObject[$stepKey]['ingredients'][$ingredientKey] = [
+                    'id' => $ingredient->id,
+                    'amount' => $ingredient->pivot->amount,
+                    'unit' => $ingredient->pivot->unit,
+                ];
+            }
+        }
+
+        $ingredients = Ingredient::getAllIngredientsValueLabel();
+        $units = Ingredient::getUnitsValueLabel();
+
+        return view('user.recipes.edit', compact([
+            'recipe',
+            'stepsObject',
+            'ingredients',
+            'units',
+        ]));
     }
 
     /**
