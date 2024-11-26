@@ -159,6 +159,57 @@ class RecipeController extends Controller
         session()->flash('stepsAmount', $steps);
 
         $request->validate($rules);
+
+        $recipe->update([
+            'title' => $request->title,
+            'total_time' => $request->total_time,
+            'description' => $request->description,
+        ]);
+
+        $existingStepIds = $recipe->steps()->pluck('id')->toArray();
+
+        foreach ($steps as $key => $value) {
+            // If step has an id, update it
+            if (isset($value['id'])) {
+                // Check if the step belongs to the recipe
+                if (! in_array($value['id'], $existingStepIds)) {
+                    continue;
+                }
+
+                $step = Step::find($value['id']);
+                $step->update([
+                    'title' => $value['title'],
+                    'description' => $value['description'],
+                ]);
+
+                foreach ($value['ingredients'] as $ingredient) {
+                    $step->ingredients()->syncWithoutDetaching([
+                        $ingredient['id'] => [
+                            'amount' => $ingredient['amount'],
+                            'unit' => $ingredient['unit'],
+                        ],
+                    ]);
+                }
+            } else {
+                $step = Step::create([
+                    'title' => $value['title'],
+                    'description' => $value['description'],
+                    'order' => $key,
+                    'recipe_id' => $recipe->id,
+                ]);
+
+                foreach ($value['ingredients'] as $ingredient) {
+                    $step->ingredients()->attach($ingredient['id'], [
+                        'amount' => $ingredient['amount'],
+                        'unit' => $ingredient['unit'],
+                    ]);
+                }
+            }
+        }
+
+        session()->flash('success', 'Article updated successfully!');
+
+        return redirect()->route('user.recipes.index');
     }
 
     /**
