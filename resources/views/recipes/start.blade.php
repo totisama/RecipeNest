@@ -1,30 +1,40 @@
 <x-site-layout>
     <x-back-button :route="route('recipes.show', $recipe)" />
-    <div class="w-full flex flex-col items-center gap-8">
-        <div class="text-center gap-3 flex flex-col items-center">
-            <img src="{{ $recipe->image }}" alt="{{ $recipe->title }}" class="w-2/3 max-w-md rounded-xl mt-4" />
-            <h1 class="text-4xl font-bold text-[#5B3A1F]">{{ $recipe->title }}</h1>
-        </div>
-        <div class="w-full max-w-3xl bg-white border border-gray-300 px-6 pt-3 pb-6 rounded-xl shadow-lg">
-            <div class="flex justify-end">
-                <x-button id="action-button" mode="secondary">
-                    Listen
-                </x-button>
+    <div class="w-full max-w-4xl mx-auto mt-8 p-6 bg-gray-100 rounded-lg shadow-md">
+        <div class="flex flex-col md:flex-row items-center gap-6">
+            <div class="w-full md:w-1/3">
+                <img src="{{ $recipe->image }}" alt="{{ $recipe->title }}" class="w-full rounded-lg shadow" />
             </div>
-            <h2 class="text-2xl font-semibold text-[#5B3A1F]">Step {{ $step->order }}: {{ $step->title }}</h2>
-            <p class="mt-4 text-lg text-gray-700">{{ $step->description }}</p>
-            <h3 class="mt-8 text-xl font-semibold text-[#5B3A1F]">Ingredients Needed</h3>
-            <ul class="mt-4 list-disc list-inside space-y-2">
-                @foreach ($step->ingredients as $ingredient)
-                    <li class="text-lg text-gray-700">
-                        <strong>{{ $ingredient->pivot->amount }}</strong>
-                        <span>{{ $ingredient->pivot->unit }}</span> of
-                        <strong>{{ $ingredient->name }}</strong>
-                    </li>
-                @endforeach
-            </ul>
+            <div class="flex flex-col w-full md:w-2/3">
+                <h1 class="text-4xl font-bold text-[#5B3A1F]">{{ $recipe->title }}</h1>
+                <p class="mt-2 text-lg text-gray-600">Step {{ $step->order }}</p>
+                <h2 class="mt-4 text-2xl font-semibold text-[#5B3A1F]">{{ $step->title }}</h2>
+                <p class="mt-2 text-gray-700 text-base">{{ $step->description }}</p>
+            </div>
         </div>
-        <div class="w-full max-w-3xl flex justify-between mt-8">
+        <div class="mt-4">
+            <x-button id="listen-button" mode="secondary">
+                Listen to the Step
+            </x-button>
+        </div>
+        <div class="mt-4">
+            <h3 class="text-xl font-bold text-[#5B3A1F] mb-4">Ingredients</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                @foreach ($step->ingredients as $ingredient)
+                    <div class="flex items-center gap-4 p-4 bg-white rounded-lg shadow">
+                        <img src="{{ $ingredient->image }}" alt="{{ $ingredient->name }}"
+                            class="w-16 h-16 rounded-lg object-cover" />
+                        <div>
+                            <p class="text-lg font-semibold text-gray-700">{{ $ingredient->name }}</p>
+                            <p class="text-sm text-gray-600">
+                                <strong>{{ $ingredient->pivot->amount }}</strong> {{ $ingredient->pivot->unit }}
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        <div class="flex justify-between items-center mt-8">
             @if ($previousStepNumber)
                 <x-link mode="primary" href="{{route('recipes.start', $recipe)}}?step={{$previousStepNumber}}">
                     Previous Step
@@ -36,9 +46,13 @@
                 <x-link mode="primary" href="{{route('recipes.start', $recipe)}}?step={{$nextStepNumber}}">
                     Next Step
                 </x-link>
-            @else
-                <div></div>
             @endif
         </div>
     </div>
 </x-site-layout>
+
+<script>
+    document.getElementById('listen-button').addEventListener('click', function () {
+        console.log('click')
+    });
+</script>
