@@ -40,6 +40,7 @@ class IngredientController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:100'],
+            'image' => ['required', 'file', 'image', 'max:1024'],
         ]);
 
         $userId = auth()->user()->id;
@@ -48,10 +49,11 @@ class IngredientController extends Controller
             abort(401);
         }
 
-        Ingredient::create([
+        $ingredient = Ingredient::create([
             'name' => $request->name,
-            'image' => fake()->imageUrl(),
         ]);
+
+        $ingredient->addMediaFromRequest('image')->toMediaCollection('images');
 
         return redirect()->route('user.ingredients.index');
     }
