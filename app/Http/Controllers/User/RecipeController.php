@@ -64,8 +64,9 @@ class RecipeController extends Controller
             'total_time' => $request->total_time,
             'description' => $request->description,
             'user_id' => $userId,
-            'image' => fake()->imageUrl(),
         ]);
+
+        $recipe->addMediaFromRequest('image')->toMediaCollection('images');
 
         foreach ($steps as $key => $value) {
             $step = Step::create([
@@ -167,6 +168,8 @@ class RecipeController extends Controller
             'total_time' => $request->total_time,
             'description' => $request->description,
         ]);
+
+        $recipe->addMediaFromRequest('image')->toMediaCollection('images');
 
         $existingStepIds = $recipe->steps()->pluck('id')->toArray();
 
@@ -298,6 +301,8 @@ class RecipeController extends Controller
                 }
             }
         }
+
+        $rules['image'] = ['required', 'file', 'image', 'max:1024'];
 
         return [$rules, $steps];
     }
