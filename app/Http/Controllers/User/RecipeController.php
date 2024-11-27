@@ -107,6 +107,8 @@ class RecipeController extends Controller
         $steps = $recipe->steps->sortBy('order');
         $stepsObject = [];
 
+        $steps->load('ingredients');
+
         foreach ($steps as $stepKey => $step) {
             $stepKey += 1;
 

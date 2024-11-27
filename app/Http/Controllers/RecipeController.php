@@ -14,6 +14,8 @@ class RecipeController extends Controller
             abort(404);
         }
 
+        $recipe->load('steps', 'steps.ingredients');
+
         return view('recipes.show')->with('recipe', $recipe);
     }
 
