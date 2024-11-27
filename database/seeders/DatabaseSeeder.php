@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         //     'user_id' => fn () => $users->random()->id,
         // ]);
 
-        $ingredients = Ingredient::factory(50)->create();
+        // $ingredients = Ingredient::factory(50)->create();
 
         // $recipes->each(function ($recipe) use ($ingredients) {
         //     $steps = Step::factory(rand(3, 8))->create([
