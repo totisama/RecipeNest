@@ -9,11 +9,11 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : $s
             Edit <strong class="italic">{{$recipe->title}}</strong> recipe
         </h1>
         <form action="{{route('user.recipes.update', $recipe)}}" method="post"
-            class="w-2/3 bg-white space-y-5 rounded-xl border border-gray-300 p-4">
+            class="w-full bg-white space-y-5 rounded-xl border border-gray-300 p-4 md:w-2/3">
             @method('PUT')
             @csrf
 
-            <div class="flex gap-5">
+            <div class="flex flex-col gap-5 md:flex-row">
                 <x-form-text value="{{$recipe->title}}" name="title" label="Title" />
                 <x-form-number value="{{$recipe->total_time}}" name="total_time"
                     label="Approximate total time (minutes)" />
@@ -48,7 +48,7 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : $s
                                     </div>
                                     <div id="step{{$stepIndex}}-ingredients-container" class="w-full flex flex-col gap-3">
                                         @foreach ($step['ingredients'] as $ingredientIndex => $ingredient)
-                                            <div class="w-full flex gap-3">
+                                            <div class="w-full gap-3 flex flex-col md:flex-row">
                                                 <x-form-select name="step{{$stepIndex}}-ingredient{{$ingredientIndex}}-id"
                                                     label="Ingredient {{$ingredientIndex}}" :options="$ingredients"
                                                     value="{{$ingredient['id']}}" />
@@ -121,7 +121,7 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : $s
             const newIngredientDiv = document.createElement('div');
             newIngredientDiv.className = 'w-full flex gap-3';
             newIngredientDiv.innerHTML = `
-                <div class="w-full flex gap-3">
+                <div class="w-full gap-3 flex flex-col md:flex-row">
                     <x-form-select name="step${stepNumber}-ingredient${ingredientCount}-id" label="Ingredient ${ingredientCount}" :options="$ingredients" />
                     <x-form-number name="step${stepNumber}-ingredient${ingredientCount}-amount" label="Amount" />
                     <x-form-select name="step${stepNumber}-ingredient${ingredientCount}-unit" label="Unit" :options="$units" />
@@ -159,7 +159,7 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : $s
                             <x-button mode="secondary" data-step="${stepsAmount}" id="step${stepsAmount}-add-ingredient">+</x-button>
                         </div>
                         <div id="step${stepsAmount}-ingredients-container" class="w-full flex flex-col gap-3">
-                            <div class="w-full flex gap-3">
+                            <div class="w-full gap-3 flex flex-col md:flex-row">
                                 <x-form-select name="step${stepsAmount}-ingredient1-id" label="Ingredient 1" :options="$ingredients" />
                                 <x-form-number name="step${stepsAmount}-ingredient1-amount" label="Amount" />
                                 <x-form-select name="step${stepsAmount}-ingredient1-unit" label="Unit" :options="$units" />
