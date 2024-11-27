@@ -2,19 +2,20 @@
     <h1 class="text-4xl font-bold text-center text-[#5B3A1F]">
         Recipes
     </h1>
-    <div class="my-10 grid grid-cols-2 gap-x-8 gap-y-6 place-items-center md:grid-cols-3">
+    <div style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));"
+        class="px-5 mt-3 mb-10 grid gap-x-8 gap-y-6 place-items-center">
         @foreach ($recipes as $recipe)
             <a href="{{route('recipes.show', [$recipe->id])}}"
-                class='group h-72 overflow-hidden select-none pb-3 flex flex-col items-center gap-4 bg-white w-full px-5 rounded-3xl transition-transform duration-300 ease-out md:h-full md:max-w-80 hover:cursor-pointer hover:scale-105'>
+                class='group h-72 overflow-hidden select-none max-w-80 pb-3 flex flex-col items-center gap-4 bg-white w-full px-5 rounded-3xl transition-transform duration-300 ease-out md:h-full hover:cursor-pointer hover:scale-105'>
                 <img src="{{$recipe->image}}" alt="{{$recipe->title}} image"
-                    class="rounded-3xl h-40 transition-transform duration-300 ease-out md:h-56 group-hover:scale-105" />
+                    class="rounded-3xl h-48 transition-transform duration-300 ease-out md:h-56 group-hover:scale-110" />
                 <div class="h-full w-full flex flex-col justify-between">
-                    <h2 class="text-[#5B3A1F] text-center font-bold text-base md:text-xl">{{ $recipe->title }}</h2>
+                    <h2 class="text-[#5B3A1F] text-center font-bold text-xl md:text-2xl">{{ $recipe->title }}</h2>
                     <div class="px-3 flex flex-col">
-                        <small class="text-semibold text-[#B2794B] text-sm md:text-lg">
+                        <small class="text-semibold text-[#B2794B] text-base md:text-lg">
                             {{count($recipe->steps)}} steps
                         </small>
-                        <small class="text-semibold text-[#B2794B] text-sm md:text-lg">
+                        <small class="text-semibold text-[#B2794B] text-base md:text-lg">
                             Estimated time: {{$recipe->formatTime()}}
                         </small>
                     </div>
