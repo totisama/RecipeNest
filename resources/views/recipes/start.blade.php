@@ -1,6 +1,6 @@
 <x-site-layout>
     <x-back-button :route="route('recipes.show', $recipe)" />
-    <div class="w-full max-w-4xl mx-auto mt-8 p-6 bg-gray-100 rounded-lg shadow-md">
+    <div class="w-full max-w-4xl mx-auto mt-4 p-6 bg-gray-100 rounded-lg shadow-md">
         <div class="flex flex-col md:flex-row items-center gap-6">
             <div class="w-full md:w-1/3">
                 <img src="{{ $recipe->image }}" alt="{{ $recipe->title }}" class="w-full rounded-lg shadow" />
@@ -14,7 +14,7 @@
         </div>
         <div class="mt-4">
             <x-button id="listen-button" mode="secondary">
-                Listen to the Step
+                Listen
             </x-button>
         </div>
         <div class="mt-4">
@@ -52,7 +52,25 @@
 </x-site-layout>
 
 <script>
+    const step = @json($step);
+    const utterance = new SpeechSynthesisUtterance()
+    let playing = false
+
+    utterance.lang = 'en-US'
+    utterance.rate = 0.9
+
+    const finishInstructions = function () {
+        playing = false
+    }
+
     document.getElementById('listen-button').addEventListener('click', function () {
-        console.log('click')
+        if (playing) {
+            return
+        }
+
+        utterance.text = step['title'] + step['description']
+        speechSynthesis.speak(utterance)
+        utterance.onend = finishInstructions
+        playing = true
     });
 </script>
