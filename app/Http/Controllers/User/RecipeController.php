@@ -169,7 +169,11 @@ class RecipeController extends Controller
             'description' => $request->description,
         ]);
 
-        $recipe->addMediaFromRequest('image')->toMediaCollection('images');
+        if ($request->hasFile('image')) {
+            $recipe->clearMediaCollection('images');
+
+            $recipe->addMediaFromRequest('image')->toMediaCollection('images');
+        }
 
         $existingStepIds = $recipe->steps()->pluck('id')->toArray();
 
