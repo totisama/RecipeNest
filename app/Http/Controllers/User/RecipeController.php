@@ -215,7 +215,7 @@ class RecipeController extends Controller
             }
         }
 
-        session()->flash('success', 'Article updated successfully!');
+        session()->flash('success', 'Recipe updated successfully!');
 
         return redirect()->route('user.recipes.index');
     }
@@ -231,7 +231,7 @@ class RecipeController extends Controller
 
         $recipe->delete();
 
-        session()->flash('success', 'Article deleted successfully!');
+        session()->flash('success', 'Recipe deleted successfully!');
 
         return redirect()->route('user.recipes.index');
     }
