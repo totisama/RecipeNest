@@ -1,42 +1,49 @@
 <x-site-layout>
-    <x-back-button route="{{route('welcome')}}" />
-    <div class="max-w-4xl mt-5 mb-10 mx-auto px-6 md:mt-0">
-        <h1 class="text-4xl font-bold text-center text-[#5B3A1F] mb-6">{{ $recipe->title }}</h1>
-        <div class="flex justify-center mb-6">
-            <img src="{{ $recipe->image }}" alt="{{ $recipe->title }} image" class="rounded-xl w-full max-w-md" />
-        </div>
-        <div class="mb-5">
-            <p class="text-lg text-[#63462B]"><strong>Total Time:</strong> {{ $recipe->formatTime() }}</p>
-            <p class="text-lg text-[#63462B]"><strong>Description:</strong> {{ $recipe->description }}</p>
-            <div class="mt-3">
-                <x-link mode="primary" href="{{route('recipes.start', $recipe)}}?step=1">Start Recipe</x-link>
+    <x-back-button route="{{ route('welcome') }}" />
+    <div class="max-w-5xl mx-auto px-6 pt-3 pb-10">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex flex-col md:flex-row items-center md:items-start">
+                <div class="w-full md:w-1/3 flex justify-center">
+                    <img src="{{ $recipe->image }}" alt="{{ $recipe->title }} image"
+                        class="rounded-lg shadow-lg w-48 h-48 object-cover" />
+                </div>
+                <div class="mt-4 md:mt-0 md:ml-6 flex-1">
+                    <h1 class="text-4xl font-bold text-[#5B3A1F] mb-4 text-center md:text-left">{{ $recipe->title }}
+                    </h1>
+                    <div class="text-[#63462B] text-base">
+                        <p class="mb-2"><strong>Total Time:</strong> {{ $recipe->formatTime() }}</p>
+                        <p class="mb-4"><strong>Description:</strong> {{ $recipe->description }}</p>
+                    </div>
+                    <div class="mt-4 flex justify-center md:justify-start">
+                        <x-link mode="primary" href="{{ route('recipes.start', $recipe) }}?step=1">Start Recipe</x-link>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="mb-8">
-            <h2 class="text-2xl font-semibold text-[#412913] mb-4">Steps</h2>
-            <ol class="list-decimal pl-6 text-[#5B3A1F]">
+        <section class="mt-5">
+            <h2 class="text-3xl font-semibold text-[#412913] mb-6">Steps</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 @foreach ($recipe->steps as $step)
-                    <li class="mb-3">
-                        <h3 class="font-bold text-lg">{{ $step->title }}</h3>
-                        <p class="text-base">{{ $step->description }}</p>
-                    </li>
-                @endforeach
-            </ol>
-        </div>
-        <div>
-            <h2 class="text-2xl font-semibold text-[#412913] mb-4">Ingredients</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                @foreach ($recipe->getIngredients() as $ingredient)
-                    <div class="flex flex-col items-center">
-                        <img src="{{ $ingredient->image }}" alt="{{ $ingredient->name }} image"
-                            class="rounded-full w-20 h-20" />
-                        <strong class="text-center text-[#5B3A1F] font-bold">{{ $ingredient->name }}</strong>
-                        <small class="text-center text-[#5B3A1F] font-semibold">{{ $ingredient->pivot->amount }}
-                            {{ $ingredient->pivot->unit }}
-                        </small>
+                    <div class="p-6 bg-[#FFF9F3] border border-[#E5DACB] rounded-lg shadow-sm">
+                        <h3 class="text-xl font-bold text-[#5B3A1F] mb-3">{{ $step->title }}</h3>
+                        <p class="text-[#63462B]">{{ $step->description }}</p>
                     </div>
                 @endforeach
             </div>
-        </div>
+        </section>
+        <section class="mt-5">
+            <h2 class="text-3xl font-semibold text-[#412913] mb-6">Ingredients</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                @foreach ($recipe->getIngredients() as $ingredient)
+                    <div class="flex flex-col items-center bg-[#FFF9F3] p-4 rounded-lg border border-[#E5DACB] shadow-sm">
+                        <img src="{{ $ingredient->image }}" alt="{{ $ingredient->name }} image"
+                            class="rounded-full w-24 h-24 mb-4" />
+                        <strong class="text-center text-[#5B3A1F] text-lg font-bold">{{ $ingredient->name }}</strong>
+                        <small class="text-center text-[#63462B]">{{ $ingredient->pivot->amount }}
+                            {{ $ingredient->pivot->unit }}</small>
+                    </div>
+                @endforeach
+            </div>
+        </section>
     </div>
 </x-site-layout>
