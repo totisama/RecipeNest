@@ -13,7 +13,6 @@ class IngredientFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'image' => $this->faker->imageUrl(),
         ];
     }
 }

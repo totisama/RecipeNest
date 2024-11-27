@@ -16,7 +16,6 @@ class RecipeFactory extends Factory
             'title' => $this->faker->sentence,
             'total_time' => $this->faker->numberBetween(10, 120),
             'description' => $this->faker->paragraph,
-            'image' => $this->faker->imageUrl(),
             'user_id' => User::factory(),
         ];
     }
