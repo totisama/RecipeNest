@@ -53,24 +53,24 @@
 
 <script>
     const step = @json($step);
-    const utterance = new SpeechSynthesisUtterance()
-    let playing = false
+    const textToSpeak = step.title + '.. ' + step.description;
+    const utterance = new SpeechSynthesisUtterance(textToSpeak);
+    let playing = false;
 
-    utterance.lang = 'en-US'
-    utterance.rate = 0.9
+    utterance.lang = 'en-US';
+    utterance.rate = 0.5;
 
     const finishInstructions = function () {
-        playing = false
-    }
+        playing = false;
+    };
 
     document.getElementById('listen-button').addEventListener('click', function () {
         if (playing) {
-            return
+            return;
         }
 
-        utterance.text = step['title'] + step['description']
-        speechSynthesis.speak(utterance)
-        utterance.onend = finishInstructions
-        playing = true
+        speechSynthesis.speak(utterance);
+        utterance.onend = finishInstructions;
+        playing = true;
     });
 </script>
