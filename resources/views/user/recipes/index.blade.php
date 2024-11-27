@@ -24,7 +24,7 @@
                 <div
                     class="flex items-center flex-col justify-between border-b-black border-b-[1px] p-4 md:flex-row last:border-b-0">
                     <div class="flex flex-col items-center gap-4 md:flex-row">
-                        <img src="{{ $recipe->image }}" alt="{{ $recipe->title }}"
+                        <img src="{{ $recipe->media->first()->getUrl() }}" alt="{{ $recipe->title }}"
                             class="w-24 h-24 rounded-lg object-cover" />
                         <a href="{{route('recipes.show', $recipe->id)}}"
                             class="w-full px-0 md:px-5 transition-all duration-300 ease-out md:w-4/5 hover:scale-105">

@@ -4,8 +4,8 @@
         <div class="bg-white p-6 rounded-lg shadow-md">
             <div class="flex flex-col md:flex-row items-center md:items-start">
                 <div class="w-full md:w-1/3 flex justify-center">
-                    <img src="{{ $recipe->image }}" alt="{{ $recipe->title }} image"
-                        class="rounded-lg shadow-lg w-48 h-48 object-cover" />
+                    <img src="{{ $recipe->media->first()->getUrl() }}" alt="{{ $recipe->title }} image"
+                        class="rounded-lg shadow-lg w-76 h-76 object-cover" />
                 </div>
                 <div class="mt-4 md:mt-0 md:ml-6 flex-1">
                     <h1 class="text-4xl font-bold text-[#5B3A1F] mb-4 text-center md:text-left">{{ $recipe->title }}

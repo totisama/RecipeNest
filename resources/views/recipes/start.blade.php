@@ -3,7 +3,8 @@
     <div class="w-full max-w-4xl mx-auto mt-4 p-6 bg-gray-100 rounded-lg shadow-md">
         <div class="flex flex-col md:flex-row items-center gap-6">
             <div class="w-full md:w-1/3">
-                <img src="{{ $recipe->image }}" alt="{{ $recipe->title }}" class="w-full rounded-lg shadow" />
+                <img src="{{ $recipe->media->first()->getUrl() }}" alt="{{ $recipe->title }}"
+                    class="w-full rounded-lg shadow" />
             </div>
             <div class="flex flex-col w-full md:w-2/3">
                 <h1 class="text-4xl font-bold text-[#5B3A1F]">{{ $recipe->title }}</h1>
