@@ -8,9 +8,8 @@
             </div>
             <div class="flex flex-col w-full md:w-2/3">
                 <h1 class="text-4xl font-bold text-[#5B3A1F]">{{ $recipe->title }}</h1>
-                <p class="mt-2 text-lg text-gray-600">Step {{ $step->order }}</p>
                 <h2 class="mt-4 text-2xl font-semibold text-[#5B3A1F]">{{ $step->title }}</h2>
-                <p class="mt-2 text-gray-700 text-base">{{ $step->description }}</p>
+                <p class="mt-2 text-black text-base">{{ $step->description }}</p>
             </div>
         </div>
         <div class="mt-4">
