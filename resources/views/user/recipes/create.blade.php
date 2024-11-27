@@ -7,7 +7,7 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : 0
         <h1 class="text-4xl font-bold text-center text-[#5B3A1F]">
             New recipe
         </h1>
-        <form action="{{route('user.recipes.store')}}" method="post"
+        <form action="{{route('user.recipes.store')}}" method="post" enctype="multipart/form-data"
             class="w-full bg-white space-y-5 rounded-xl border border-gray-300 p-4 md:w-2/3">
             @csrf
 
@@ -15,6 +15,7 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : 0
                 <x-form-text name="title" label="Title" />
                 <x-form-number name="total_time" label="Approximate total time (minutes)" />
             </div>
+            <x-form-image name="image" />
             <x-form-textarea name="description" label="Description" />
 
             <div class="px-5">

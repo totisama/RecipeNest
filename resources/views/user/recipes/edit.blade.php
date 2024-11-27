@@ -8,7 +8,7 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : $s
         <h1 class="text-4xl font-bold text-center text-[#5B3A1F]">
             Edit <strong class="italic">{{$recipe->title}}</strong> recipe
         </h1>
-        <form action="{{route('user.recipes.update', $recipe)}}" method="post"
+        <form action="{{route('user.recipes.update', $recipe)}}" method="post" enctype="multipart/form-data"
             class="w-full bg-white space-y-5 rounded-xl border border-gray-300 p-4 md:w-2/3">
             @method('PUT')
             @csrf
@@ -18,6 +18,7 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : $s
                 <x-form-number value="{{$recipe->total_time}}" name="total_time"
                     label="Approximate total time (minutes)" />
             </div>
+            <x-form-image name="image" />
             <x-form-textarea value="{{$recipe->description}}" name="description" label="Description" />
 
             <div class="px-5">
