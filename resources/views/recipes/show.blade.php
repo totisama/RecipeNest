@@ -36,7 +36,7 @@
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 @foreach ($recipe->getIngredients() as $ingredient)
                     <div class="flex flex-col items-center bg-[#FFF9F3] p-4 rounded-lg border border-[#E5DACB] shadow-sm">
-                        <img src="{{ $ingredient->image }}" alt="{{ $ingredient->name }} image"
+                        <img src="{{$ingredient->media->first()->getUrl()}}" alt="{{ $ingredient->name }} image"
                             class="rounded-full w-24 h-24 mb-4" />
                         <strong class="text-center text-[#5B3A1F] text-lg font-bold">{{ $ingredient->name }}</strong>
                         <small class="text-center text-[#63462B]">{{ $ingredient->pivot->amount }}

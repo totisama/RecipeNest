@@ -23,7 +23,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 @foreach ($step->ingredients as $ingredient)
                     <div class="flex items-center gap-4 p-4 bg-white rounded-lg shadow">
-                        <img src="{{ $ingredient->image }}" alt="{{ $ingredient->name }}"
+                        <img src="{{$ingredient->media->first()->getUrl()}}" alt="{{ $ingredient->name }}"
                             class="w-16 h-16 rounded-lg object-cover" />
                         <div>
                             <p class="text-lg font-semibold text-gray-700">{{ $ingredient->name }}</p>
