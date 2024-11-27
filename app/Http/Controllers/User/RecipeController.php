@@ -252,7 +252,7 @@ class RecipeController extends Controller
             if ($key === '_token') {
                 continue;
             } elseif (str_contains($key, 'amount') || $key === 'total_time') {
-                $defaultRule[1] = 'numeric';
+                $defaultRule = ['required', 'numeric', 'min:1'];
             } elseif (str_contains($key, 'unit')) {
                 array_push($defaultRule, Rule::in($units));
             }
