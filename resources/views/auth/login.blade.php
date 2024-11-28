@@ -28,7 +28,10 @@
                 </label>
             </div>
 
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-end gap-4 mt-6">
+                <a class="text-sm text-[#5B3A1F] hover:underline" href="{{ route('register') }}">
+                    {{ __('Dont have an account?') }}
+                </a>
                 <x-button type="submit" mode="primary">
                     {{ __('Log in') }}
                 </x-button>
