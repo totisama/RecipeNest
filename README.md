@@ -4,8 +4,6 @@
 Recipe platform where you can easily search for and save your favorite recipes. Explore detailed ingredients and have a step-by-step instructions to create the recipes.
 
 ## 🧱 Getting Started
-
-
 Clone the repo and enter the folder
 
 ```
@@ -19,6 +17,26 @@ cd RecipeNest
 - if using sqlite: do execute `touch database/database.sqlite`
 - and then migrate the tables: `php artisan migrate`
 - and then seed date: `php artisan db:seed`.
+
+## 🔋 Features
+- **User Authentication**
+  - Secure login and registration system.
+
+- **Recipe Management**
+  - Create, update, and delete recipes.
+  - Add dynamic steps and manage ingredients for each step.
+
+- **Ingredient Management**
+  - Create and delete ingredients.
+
+- **Media Upload**
+  - Upload and manage recipe and ingredient images using Spatie Media Library.
+
+- **Responsive Design**
+  - Fully responsive layout for mobile, tablet, and desktop users.
+
+- **Seeders**
+  - Preloaded database with ingredients and recipes for testing and development.
 
 ## 🔨 Technologies
 - Laravel
