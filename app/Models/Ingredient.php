@@ -23,7 +23,7 @@ class Ingredient extends Model implements HasMedia
 
     public static function getUnits(): Collection
     {
-        return collect(['grams', 'kilograms', 'liters', 'milliliters', 'pounds', 'ounces']);
+        return collect(['grams', 'kilograms', 'liters', 'milliliters', 'pounds', 'ounces', 'cup', 'tablespoon', 'teaspoon']);
     }
 
     public static function getUnitsValueLabel()
@@ -35,6 +35,9 @@ class Ingredient extends Model implements HasMedia
             ['value' => 'milliliters', 'label' => 'Milliliters'],
             ['value' => 'pounds', 'label' => 'Pounds'],
             ['value' => 'ounces', 'label' => 'Ounces'],
+            ['value' => 'cup', 'label' => 'Cup'],
+            ['value' => 'tablespoon', 'label' => 'Tablespoon'],
+            ['value' => 'teaspoon', 'label' => 'Teaspoon'],
         ]);
     }
 
