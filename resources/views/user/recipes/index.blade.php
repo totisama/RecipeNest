@@ -1,24 +1,22 @@
+<?php
+$isSuccess = session()->has('success');
+?>
+
 <x-site-layout>
     <div class="max-w-6xl mx-auto">
         <h1 class="text-4xl font-bold text-center text-[#5B3A1F] mb-6">
             My Recipes
         </h1>
-        @if(session()->has('success'))
-            <div class="flex justify-between mb-2">
-                <div class="w-2/5 px-3 py-1 text-base text-center font-medium rounded-lg bg-green-300 text-green-900 p-2">
-                    {!! session()->get('success') !!}
+        <div class="flex {{ $isSuccess ? 'justify-between' : 'justify-end' }} mb-2">
+            @if($isSuccess)
+                <div class="w-2/5 px-3 py-1 text-base text-center font-medium rounded-lg p-2 bg-green-300 text-green-900">
+                    {{ session('success') }}
                 </div>
-                <x-link mode="primary" href="{{ route('user.recipes.create') }}">
-                    Create recipe
-                </x-link>
-            </div>
-        @else
-            <div class="flex justify-end mb-2">
-                <x-link mode="primary" href="{{ route('user.recipes.create') }}">
-                    Create recipe
-                </x-link>
-            </div>
-        @endif
+            @endif
+            <x-link mode="primary" href="{{ route('user.recipes.create') }}">
+                Create recipe
+            </x-link>
+        </div>
         <div class="space-y-4 bg-white rounded-xl">
             @foreach ($recipes as $recipe)
                 <div
