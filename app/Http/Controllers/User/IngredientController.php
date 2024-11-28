@@ -56,6 +56,8 @@ class IngredientController extends Controller
 
         $ingredient->addMediaFromRequest('image')->toMediaCollection('images');
 
+        session()->flash('success', 'Ingredient created successfully!');
+
         return redirect()->route('user.ingredients.index');
     }
 
@@ -88,6 +90,22 @@ class IngredientController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $ingredient = Ingredient::findOrFail($id);
+
+        if (auth()->user() === null) {
+            abort(401);
+        }
+
+        if (count($ingredient->steps) > 0) {
+            session()->flash('error', 'Ingredient is in use and cannot be deleted!');
+
+            return redirect()->route('user.ingredients.index');
+        }
+
+        $ingredient->delete();
+
+        session()->flash('success', 'Ingredient deleted successfully!');
+
+        return redirect()->route('user.ingredients.index');
     }
 }
