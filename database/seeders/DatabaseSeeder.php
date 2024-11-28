@@ -16,37 +16,79 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::create([
+        User::create([
             'name' => 'Rodrigo Sama',
             'email' => 'toti@gmail.com',
             'password' => '$2y$12$nJT5MdPhGzDqNZFfbjxCL.gROd37N0Y/f6mSx7dxV67Uju5Jtza/S',
         ]);
 
-        // $users = User::factory(1)->create();
+        $ingredients = [
+            'Flour',
+            'Sugar',
+            'Salt',
+            'Butter',
+            'Eggs',
+            'Milk',
+            'Cheese',
+            'Tomatoes',
+            'Chicken',
+            'Beef',
+            'Carrots',
+            'Onions',
+            'Garlic',
+            'Potatoes',
+            'Peppers',
+            'Rice',
+            'Pasta',
+            'Chocolate',
+            'Vanilla',
+            'Yeast',
+            'Spinach',
+            'Basil',
+            'Parsley',
+            'Cinnamon',
+            'Ginger',
+            'Honey',
+            'Lemon',
+            'Orange',
+            'Fish',
+        ];
 
-        // $users->prepend($user);
+        foreach ($ingredients as $ingredientName) {
+            $ingredient = Ingredient::create([
+                'name' => $ingredientName,
+            ]);
+        }
 
-        // $recipes = Recipe::factory(10)->create([
-        //     'user_id' => fn () => $users->random()->id,
-        // ]);
+        $numRecipes = 10;
+        for ($i = 0; $i < $numRecipes; $i++) {
 
-        // $ingredients = Ingredient::factory(50)->create();
+            $recipe = Recipe::create([
+                'title' => fake()->words(3, true),
+                'total_time' => fake()->numberBetween(10, 120),
+                'description' => fake()->paragraph(3),
+                'user_id' => 1,
+            ]);
 
-        // $recipes->each(function ($recipe) use ($ingredients) {
-        //     $steps = Step::factory(rand(3, 8))->create([
-        //         'recipe_id' => $recipe->id,
-        //     ]);
+            $numSteps = fake()->numberBetween(3, 8);
+            for ($step = 1; $step <= $numSteps; $step++) {
+                $recipeStep = Step::create([
+                    'title' => fake()->sentence(),
+                    'description' => fake()->paragraph(2),
+                    'order' => $step,
+                    'recipe_id' => $recipe->id,
+                ]);
 
-        //     $steps->each(function ($step) use ($ingredients) {
-        //         $randomIngredients = $ingredients->random(rand(2, 5));
+                $numIngredients = fake()->numberBetween(1, 5);
+                for ($j = 0; $j < $numIngredients; $j++) {
+                    $ingredient = Ingredient::inRandomOrder()->first();
 
-        //         foreach ($randomIngredients as $ingredient) {
-        //             $step->ingredients()->attach($ingredient->id, [
-        //                 'amount' => fake()->randomFloat(2, 0.1, 5), // Random amount for each ingredient
-        //                 'unit' => fake()->randomElement(['grams', 'kilograms', 'liters', 'milliliters', 'pounds', 'ounces']),
-        //             ]);
-        //         }
-        //     });
-        // });
+                    $recipeStep->ingredients()->attach($ingredient->id, [
+                        'amount' => fake()->randomFloat(2, 0.1, 10),
+                        'unit' => fake()->randomElement(Ingredient::getUnits()->toArray()),
+                    ]);
+                }
+            }
+        }
     }
 }
