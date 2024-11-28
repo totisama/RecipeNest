@@ -19,20 +19,24 @@
         </div>
         <div class="mt-4">
             <h3 class="text-xl font-bold text-[#5B3A1F] mb-4">Ingredients</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                @foreach ($step->ingredients as $ingredient)
-                    <div class="flex items-center gap-4 p-4 bg-white rounded-lg shadow">
-                        <img src="{{$ingredient->media->first() !== null ? $ingredient->media->first()->getUrl() : asset('images/placeholder.jpg')}}"
-                            alt="{{ $ingredient->name }}" class="w-16 h-16 rounded-lg object-cover" />
-                        <div>
-                            <p class="text-lg font-semibold text-gray-700">{{ $ingredient->name }}</p>
-                            <p class="text-sm text-gray-600">
-                                <strong>{{ $ingredient->pivot->amount }}</strong> {{ $ingredient->pivot->unit }}
-                            </p>
+            @if($step->ingredients->isEmpty())
+                <p class="text-gray-600">No ingredients required for this step.</p>
+            @else
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    @foreach ($step->ingredients as $ingredient)
+                        <div class="flex items-center gap-4 p-4 bg-white rounded-lg shadow">
+                            <img src="{{$ingredient->media->first() !== null ? $ingredient->media->first()->getUrl() : asset('images/placeholder.jpg')}}"
+                                alt="{{ $ingredient->name }}" class="w-16 h-16 rounded-lg object-cover" />
+                            <div>
+                                <p class="text-lg font-semibold text-gray-700">{{ $ingredient->name }}</p>
+                                <p class="text-sm text-gray-600">
+                                    <strong>{{ $ingredient->pivot->amount }}</strong> {{ $ingredient->pivot->unit }}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
+                    @endforeach
+                </div>
+            @endif
         </div>
         <div class="flex justify-between items-center mt-8">
             @if ($previousStepNumber)
