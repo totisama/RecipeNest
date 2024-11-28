@@ -26,5 +26,9 @@ cd RecipeNest
 - Tailwind
 - JavaScript
 
-## Authors
+## 👥 Authors
 - Rodrigo Samayoa ([@totisama](https://github.com/totisama))
+
+## 🪪 License
+
+This project is licensed with the [MIT license](LICENSE).
