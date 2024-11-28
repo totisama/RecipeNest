@@ -161,11 +161,6 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : $s
                             <x-button mode="secondary" data-step="${stepsAmount}" id="step${stepsAmount}-add-ingredient">+</x-button>
                         </div>
                         <div id="step${stepsAmount}-ingredients-container" class="w-full flex flex-col gap-3">
-                            <div class="w-full gap-3 flex flex-col md:flex-row">
-                                <x-form-select name="step${stepsAmount}-ingredient1-id" label="Ingredient 1" :options="$ingredients" />
-                                <x-form-number min="0" name="step${stepsAmount}-ingredient1-amount" label="Amount" />
-                                <x-form-select name="step${stepsAmount}-ingredient1-unit" label="Unit" :options="$units" />
-                            </div>
                         </div>
                     </div>
                 </div>
