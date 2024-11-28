@@ -157,7 +157,7 @@ class RecipeController extends Controller
         $recipe = Recipe::find($id);
         $recipe->isAuthorized(auth()->user());
 
-        $data = $this->buildRulesAndDataStructure($request->all());
+        $data = $this->buildRulesAndDataStructure($request->all(), false);
         $rules = $data[0];
         $steps = $data[1];
 
@@ -245,7 +245,7 @@ class RecipeController extends Controller
         return redirect()->route('user.recipes.index');
     }
 
-    private function buildRulesAndDataStructure($input)
+    private function buildRulesAndDataStructure($input, $addImageRule = true)
     {
         $units = Ingredient::getUnits();
         $rules = [];
@@ -257,7 +257,9 @@ class RecipeController extends Controller
 
             if ($key === '_token') {
                 continue;
-            } elseif (str_contains($key, 'amount') || $key === 'total_time') {
+            } elseif (str_contains($key, 'amount')) {
+                $defaultRule = ['required', 'numeric', 'min:0.01'];
+            } elseif ($key === 'total_time') {
                 $defaultRule = ['required', 'numeric', 'min:1'];
             } elseif (str_contains($key, 'unit')) {
                 array_push($defaultRule, Rule::in($units));
@@ -308,7 +310,9 @@ class RecipeController extends Controller
             }
         }
 
-        $rules['image'] = ['required', 'file', 'image', 'max:1024'];
+        if ($addImageRule) {
+            $rules['image'] = ['required', 'file', 'image', 'max:1024'];
+        }
 
         return [$rules, $steps];
     }
