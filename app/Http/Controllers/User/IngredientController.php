@@ -21,6 +21,7 @@ class IngredientController extends Controller
         }
 
         $ingredients = Ingredient::all()->sortBy('name');
+        $ingredients->load('media');
 
         return view('user.ingredients.index', compact('ingredients'));
     }

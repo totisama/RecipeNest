@@ -25,6 +25,8 @@ class RecipeController extends Controller
 
         $recipes = Recipe::where('user_id', $userId)->get();
 
+        $recipes->load('media');
+
         return view('user.recipes.index', compact('recipes'));
     }
 

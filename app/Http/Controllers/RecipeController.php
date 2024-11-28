@@ -14,7 +14,7 @@ class RecipeController extends Controller
             abort(404);
         }
 
-        $recipe->load('steps', 'steps.ingredients');
+        $recipe->load('steps', 'steps.ingredients', 'steps.ingredients.media');
 
         return view('recipes.show')->with('recipe', $recipe);
     }
@@ -28,17 +28,19 @@ class RecipeController extends Controller
         }
 
         $currentStepNumber = request('step');
-        $steps = $recipe->steps;
 
         if ($currentStepNumber === null) {
             $currentStepNumber = 1;
         }
+
+        $steps = $recipe->steps;
 
         if (! is_numeric($currentStepNumber) || $currentStepNumber > $steps->count()) {
             abort(404);
         }
 
         $step = $steps->firstWhere('order', $currentStepNumber);
+        $step->load('ingredients', 'ingredients.media');
 
         if (! $step) {
             abort(404);
