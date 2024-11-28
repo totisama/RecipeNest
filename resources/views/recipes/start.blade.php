@@ -58,7 +58,7 @@
     let playing = false;
 
     utterance.lang = 'en-US';
-    utterance.rate = 0.5;
+    utterance.rate = 0.4;
 
     const finishInstructions = function () {
         playing = false;
