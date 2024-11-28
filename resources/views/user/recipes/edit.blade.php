@@ -18,7 +18,8 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : $s
                 <x-form-number value="{{$recipe->total_time}}" name="total_time"
                     label="Approximate total time (minutes)" />
             </div>
-            <x-form-image name="image" value="{{$recipe->media->first()->getUrl()}}" />
+            <x-form-image name="image"
+                value="{{$recipe->media->first() !== null ? $recipe->media->first()->getUrl() : asset('images/placeholder.jpg')}}" />
             <x-form-textarea value="{{$recipe->description}}" name="description" label="Description" />
 
             <div class="px-5">

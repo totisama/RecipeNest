@@ -3,8 +3,8 @@
     <div class="w-full max-w-4xl mx-auto mt-4 p-6 bg-gray-100 rounded-lg shadow-md">
         <div class="flex flex-col md:flex-row items-center gap-6">
             <div class="w-full md:w-1/3">
-                <img src="{{ $recipe->media->first()->getUrl() }}" alt="{{ $recipe->title }}"
-                    class="w-full rounded-lg shadow" />
+                <img src="{{$recipe->media->first() !== null ? $recipe->media->first()->getUrl() : asset('images/placeholder.jpg')}}"
+                    alt="{{ $recipe->title }}" class="w-full rounded-lg shadow" />
             </div>
             <div class="flex flex-col w-full md:w-2/3">
                 <h1 class="text-4xl font-bold text-[#5B3A1F]">{{ $recipe->title }}</h1>
@@ -22,8 +22,8 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 @foreach ($step->ingredients as $ingredient)
                     <div class="flex items-center gap-4 p-4 bg-white rounded-lg shadow">
-                        <img src="{{$ingredient->media->first()->getUrl()}}" alt="{{ $ingredient->name }}"
-                            class="w-16 h-16 rounded-lg object-cover" />
+                        <img src="{{$ingredient->media->first() !== null ? $ingredient->media->first()->getUrl() : asset('images/placeholder.jpg')}}"
+                            alt="{{ $ingredient->name }}" class="w-16 h-16 rounded-lg object-cover" />
                         <div>
                             <p class="text-lg font-semibold text-gray-700">{{ $ingredient->name }}</p>
                             <p class="text-sm text-gray-600">
