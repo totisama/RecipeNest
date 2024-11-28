@@ -15,6 +15,7 @@ class FormNumber extends Component
         public string $name,
         public string $label,
         public ?string $value = null,
+        public ?int $min = null,
     ) {
         //
     }

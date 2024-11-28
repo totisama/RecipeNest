@@ -48,7 +48,8 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : 0
                                                 <x-form-select name="step{{$stepIndex}}-ingredient{{$ingredientIndex}}-id"
                                                     label="Ingredient {{$ingredientIndex}}" :options="$ingredients"
                                                     value="{{$ingredient['id']}}" />
-                                                <x-form-number name="step{{$stepIndex}}-ingredient{{$ingredientIndex}}-amount"
+                                                <x-form-number min="0"
+                                                    name="step{{$stepIndex}}-ingredient{{$ingredientIndex}}-amount"
                                                     label="Amount" />
                                                 <x-form-select name="step{{$stepIndex}}-ingredient{{$ingredientIndex}}-unit"
                                                     label="Unit" :options="$units" value="{{$ingredient['unit']}}" />
@@ -125,7 +126,7 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : 0
             newIngredientDiv.innerHTML = `
                 <div class="w-full gap-3 flex flex-col md:flex-row">
                     <x-form-select name="step${stepNumber}-ingredient${ingredientCount}-id" label="Ingredient ${ingredientCount}" :options="$ingredients" />
-                    <x-form-number name="step${stepNumber}-ingredient${ingredientCount}-amount" label="Amount" />
+                    <x-form-number min="0" name="step${stepNumber}-ingredient${ingredientCount}-amount" label="Amount" />
                     <x-form-select name="step${stepNumber}-ingredient${ingredientCount}-unit" label="Unit" :options="$units" />
                 </div>
             `;
@@ -157,7 +158,7 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : 0
                         <div id="step${stepsAmount}-ingredients-container" class="w-full flex flex-col gap-3">
                             <div class="w-full gap-3 flex flex-col md:flex-row">
                                 <x-form-select name="step${stepsAmount}-ingredient1-id" label="Ingredient 1" :options="$ingredients" />
-                                <x-form-number name="step${stepsAmount}-ingredient1-amount" label="Amount" />
+                                <x-form-number min="0" name="step${stepsAmount}-ingredient1-amount" label="Amount" />
                                 <x-form-select name="step${stepsAmount}-ingredient1-unit" label="Unit" :options="$units" />
                             </div>
                         </div>
