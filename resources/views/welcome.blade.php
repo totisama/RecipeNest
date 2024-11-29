@@ -1,9 +1,9 @@
 <x-site-layout>
-    <h1 class="text-4xl font-bold text-center text-[#5B3A1F]">
+    <h1 class="text-5xl font-bold text-center text-[#5B3A1F]">
         Recipes
     </h1>
     <div style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));"
-        class="px-5 mt-3 mb-10 grid gap-x-8 gap-y-6 place-items-center">
+        class="px-5 mt-5 mb-10 grid gap-x-8 gap-y-6 place-items-center">
         @foreach ($recipes as $recipe)
             <a href="{{route('recipes.show', [$recipe->id])}}"
                 class='group overflow-hidden select-none max-w-80 pb-3 flex flex-col items-center gap-4 bg-white w-full px-5 rounded-3xl h-full hover:cursor-pointer'>

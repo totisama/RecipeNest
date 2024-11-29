@@ -4,10 +4,10 @@ $isSuccess = session()->has('success');
 
 <x-site-layout>
     <div class="max-w-6xl mx-auto">
-        <h1 class="text-4xl font-bold text-center text-[#5B3A1F] mb-6">
+        <h1 class="text-5xl font-bold text-center text-[#5B3A1F] mb-6">
             My Recipes
         </h1>
-        <div class="flex {{ $isSuccess ? 'justify-between' : 'justify-end' }} mb-2">
+        <div class="flex mt-5 {{ $isSuccess ? 'justify-between' : 'justify-end' }} mb-2">
             @if($isSuccess)
                 <div class="w-2/5 px-3 py-1 text-base text-center font-medium rounded-lg p-2 bg-green-300 text-green-900">
                     {{ session('success') }}

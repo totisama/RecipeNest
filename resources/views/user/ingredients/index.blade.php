@@ -4,10 +4,10 @@ $isSuccessOrError = $isSuccess || session()->has('error');
 ?>
 
 <x-site-layout>
-    <h1 class="text-4xl font-bold text-center text-[#5B3A1F]">
+    <h1 class="text-5xl font-bold text-center text-[#5B3A1F]">
         Ingredients
     </h1>
-    <div class="flex {{ $isSuccessOrError ? 'justify-between' : 'justify-end' }} mb-2">
+    <div class="flex mt-5 {{ $isSuccessOrError ? 'justify-between' : 'justify-end' }} mb-2">
         @if ($isSuccessOrError)
             <div class="w-2/5 px-3 py-1 text-base text-center font-medium rounded-lg p-2
                         {{ $isSuccess ? 'bg-green-300 text-green-900' : 'bg-red-300 text-red-900' }}">
