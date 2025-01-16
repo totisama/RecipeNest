@@ -8,7 +8,7 @@
     $classes = match ($mode) {
         'secondary' => "$baseClasses $secondaryClasses",
         'delete' => "$baseClasses $deleteClasses",
-        'primary' => "$baseClasses $primaryClasses"
+        'primary' => "$baseClasses $primaryClasses",
     };
 @endphp
 

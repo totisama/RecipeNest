@@ -8,8 +8,9 @@ $isSuccess = session()->has('success');
             My Recipes
         </h1>
         <div class="flex mt-5 {{ $isSuccess ? 'justify-between' : 'justify-end' }} mb-2">
-            @if($isSuccess)
-                <div class="w-2/5 px-3 py-1 text-base text-center font-medium rounded-lg p-2 bg-green-300 text-green-900">
+            @if ($isSuccess)
+                <div
+                    class="w-2/5 px-3 py-1 text-base text-center font-medium rounded-lg p-2 bg-green-300 text-green-900">
                     {{ session('success') }}
                 </div>
             @endif
@@ -22,11 +23,12 @@ $isSuccess = session()->has('success');
                 <div
                     class="flex items-center flex-col justify-between border-b-black border-b-[1px] p-4 md:flex-row last:border-b-0">
                     <div class="flex flex-col items-center gap-4 md:flex-row">
-                        <img src="{{$recipe->media->first() !== null ? $recipe->media->first()->getUrl() : asset('images/placeholder.jpg')}}"
+                        <img src="{{ $recipe->media->first() !== null ? $recipe->media->first()->getUrl() : asset('images/placeholder.jpg') }}"
                             alt="{{ $recipe->title }}" class="w-24 h-24 rounded-lg object-cover" />
-                        <a href="{{route('recipes.show', $recipe->id)}}"
+                        <a href="{{ route('recipes.show', $recipe->id) }}"
                             class="w-full px-0 md:px-5 transition-all duration-300 ease-out md:w-4/5 hover:scale-105">
-                            <h2 class="text-xl text-center md:text-start font-semibold text-[#5B3A1F]">{{ $recipe->title }}
+                            <h2 class="text-xl text-center md:text-start font-semibold text-[#5B3A1F]">
+                                {{ $recipe->title }}
                             </h2>
                         </a>
                     </div>

@@ -4,7 +4,7 @@
         <div class="bg-white p-6 rounded-2xl shadow-md">
             <div class="flex flex-col md:flex-row items-center md:items-start">
                 <div class="w-full md:w-1/3 flex justify-center">
-                    <img src="{{$recipe->media->first() !== null ? $recipe->media->first()->getUrl() : asset('images/placeholder.jpg')}}"
+                    <img src="{{ $recipe->media->first() !== null ? $recipe->media->first()->getUrl() : asset('images/placeholder.jpg') }}"
                         alt="{{ $recipe->title }} image" class="rounded-2xl shadow-xl w-76 h-76 object-cover" />
                 </div>
                 <div class="mt-4 md:mt-0 md:ml-6 flex-1">
@@ -39,8 +39,9 @@
             <h2 class="text-3xl font-semibold text-[#412913] mb-6">Ingredients</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 @foreach ($recipe->getIngredients() as $ingredient)
-                    <div class="flex flex-col items-center bg-[#FFF9F3] p-4 rounded-2xl border border-[#E5DACB] shadow-xl">
-                        <img src="{{$ingredient->media->first() !== null ? $ingredient->media->first()->getUrl() : asset('images/placeholder.jpg')}}"
+                    <div
+                        class="flex flex-col items-center bg-[#FFF9F3] p-4 rounded-2xl border border-[#E5DACB] shadow-xl">
+                        <img src="{{ $ingredient->media->first() !== null ? $ingredient->media->first()->getUrl() : asset('images/placeholder.jpg') }}"
                             alt="{{ $ingredient->name }} image" class="rounded-full w-24 h-24 mb-4 object-cover" />
                         <strong class="text-center text-[#5B3A1F] text-lg font-bold">{{ $ingredient->name }}</strong>
                         <small class="text-center text-[#63462B]">{{ $ingredient->pivot->amount }}

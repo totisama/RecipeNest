@@ -1,5 +1,5 @@
 <?php
-$comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : 0
+$comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : 0;
 ?>
 
 <x-site-layout>
@@ -7,7 +7,7 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : 0
         <h1 class="text-4xl font-bold text-center text-[#5B3A1F]">
             New recipe
         </h1>
-        <form action="{{route('user.recipes.store')}}" method="post" enctype="multipart/form-data"
+        <form action="{{ route('user.recipes.store') }}" method="post" enctype="multipart/form-data"
             class="w-full bg-white space-y-5 rounded-xl border border-gray-300 p-4 md:w-2/3">
             @csrf
 
@@ -25,34 +25,38 @@ $comingStepsAmount = session()->has('stepsAmount') ? session('stepsAmount') : 0
                 </div>
 
                 <div class="space-y-5 pb-5 px-5 max-h-[500px] overflow-y-scroll" id="steps-container">
-                    @if(gettype($comingStepsAmount) === 'array' && count($comingStepsAmount) > 0)
+                    @if (gettype($comingStepsAmount) === 'array' && count($comingStepsAmount) > 0)
                         @foreach ($comingStepsAmount as $stepIndex => $step)
                             <div>
                                 <strong>
-                                    Step {{$stepIndex}}
+                                    Step {{ $stepIndex }}
                                 </strong>
                                 <div class="flex flex-col gap-2">
-                                    <x-form-text name="step{{$stepIndex}}-title" label="Title" />
-                                    <x-form-textarea name="step{{$stepIndex}}-description" label="Description" />
+                                    <x-form-text name="step{{ $stepIndex }}-title" label="Title" />
+                                    <x-form-textarea name="step{{ $stepIndex }}-description" label="Description" />
                                 </div>
                                 <div class="mt-2">
                                     <div class="flex gap-3">
                                         <h2 class="text-xl font-semibold">Ingredients</h2>
-                                        <x-button mode="secondary" data-step="{{$stepIndex}}"
-                                            id="step{{$stepIndex}}-add-ingredient">+
+                                        <x-button mode="secondary" data-step="{{ $stepIndex }}"
+                                            id="step{{ $stepIndex }}-add-ingredient">+
                                         </x-button>
                                     </div>
-                                    <div id="step{{$stepIndex}}-ingredients-container" class="w-full flex flex-col gap-3">
+                                    <div id="step{{ $stepIndex }}-ingredients-container"
+                                        class="w-full flex flex-col gap-3">
                                         @foreach ($step['ingredients'] as $ingredientIndex => $ingredient)
                                             <div class="w-full gap-3 flex flex-col md:flex-row">
-                                                <x-form-select name="step{{$stepIndex}}-ingredient{{$ingredientIndex}}-id"
-                                                    label="Ingredient {{$ingredientIndex}}" :options="$ingredients"
-                                                    value="{{$ingredient['id']}}" />
+                                                <x-form-select
+                                                    name="step{{ $stepIndex }}-ingredient{{ $ingredientIndex }}-id"
+                                                    label="Ingredient {{ $ingredientIndex }}" :options="$ingredients"
+                                                    value="{{ $ingredient['id'] }}" />
                                                 <x-form-number min="0"
-                                                    name="step{{$stepIndex}}-ingredient{{$ingredientIndex}}-amount"
+                                                    name="step{{ $stepIndex }}-ingredient{{ $ingredientIndex }}-amount"
                                                     label="Amount" />
-                                                <x-form-select name="step{{$stepIndex}}-ingredient{{$ingredientIndex}}-unit"
-                                                    label="Unit" :options="$units" value="{{$ingredient['unit']}}" />
+                                                <x-form-select
+                                                    name="step{{ $stepIndex }}-ingredient{{ $ingredientIndex }}-unit"
+                                                    label="Unit" :options="$units"
+                                                    value="{{ $ingredient['unit'] }}" />
                                             </div>
                                         @endforeach
                                     </div>

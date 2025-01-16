@@ -3,7 +3,7 @@
     <div class="w-full max-w-4xl mx-auto mt-4 p-6 bg-gray-100 rounded-lg shadow-md">
         <div class="flex flex-col md:flex-row items-center gap-6">
             <div class="w-full md:w-1/3">
-                <img src="{{$recipe->media->first() !== null ? $recipe->media->first()->getUrl() : asset('images/placeholder.jpg')}}"
+                <img src="{{ $recipe->media->first() !== null ? $recipe->media->first()->getUrl() : asset('images/placeholder.jpg') }}"
                     alt="{{ $recipe->title }}" class="w-full rounded-lg shadow" />
             </div>
             <div class="flex flex-col w-full md:w-2/3">
@@ -19,13 +19,13 @@
         </div>
         <div class="mt-4">
             <h3 class="text-xl font-bold text-[#5B3A1F] mb-4">Ingredients</h3>
-            @if($step->ingredients->isEmpty())
+            @if ($step->ingredients->isEmpty())
                 <p class="text-gray-600">No ingredients required for this step.</p>
             @else
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     @foreach ($step->ingredients as $ingredient)
                         <div class="flex items-center gap-4 p-4 bg-white rounded-lg shadow">
-                            <img src="{{$ingredient->media->first() !== null ? $ingredient->media->first()->getUrl() : asset('images/placeholder.jpg')}}"
+                            <img src="{{ $ingredient->media->first() !== null ? $ingredient->media->first()->getUrl() : asset('images/placeholder.jpg') }}"
                                 alt="{{ $ingredient->name }}" class="w-16 h-16 rounded-lg object-cover" />
                             <div>
                                 <p class="text-lg font-semibold text-gray-700">{{ $ingredient->name }}</p>
@@ -40,14 +40,14 @@
         </div>
         <div class="flex justify-between items-center mt-8">
             @if ($previousStepNumber)
-                <x-link mode="primary" href="{{route('recipes.start', $recipe)}}?step={{$previousStepNumber}}">
+                <x-link mode="primary" href="{{ route('recipes.start', $recipe) }}?step={{ $previousStepNumber }}">
                     Previous Step
                 </x-link>
             @else
                 <div></div>
             @endif
             @if ($nextStepNumber)
-                <x-link mode="primary" href="{{route('recipes.start', $recipe)}}?step={{$nextStepNumber}}">
+                <x-link mode="primary" href="{{ route('recipes.start', $recipe) }}?step={{ $nextStepNumber }}">
                     Next Step
                 </x-link>
             @endif
@@ -64,11 +64,11 @@
     utterance.lang = 'en-US';
     utterance.rate = 0.4;
 
-    const finishInstructions = function () {
+    const finishInstructions = function() {
         playing = false;
     };
 
-    document.getElementById('listen-button').addEventListener('click', function () {
+    document.getElementById('listen-button').addEventListener('click', function() {
         if (playing) {
             return;
         }

@@ -5,24 +5,24 @@
                 <!-- Left -->
                 <div class="flex text-lg text-black items-center">
                     <div class="shrink-0">
-                        <a href="{{route('welcome')}}" class="flex gap-4 items-center">
-                            <img src="{{asset('images/recipeNest-logo.webp')}}" alt="Recipe Nest Logo"
+                        <a href="{{ route('welcome') }}" class="flex gap-4 items-center">
+                            <img src="{{ asset('images/recipeNest-logo.webp') }}" alt="Recipe Nest Logo"
                                 class="w-12 h-12" />
-                            Recipe Nest
+                            {{ config('app.name') }}
                         </a>
                     </div>
                     <div class="hidden md:block">
                         <div class="ml-10 flex items-baseline space-x-4">
-                            <a href="{{route('welcome')}}"
+                            <a href="{{ route('welcome') }}"
                                 class="rounded-xl px-2 py-1 transition-all duration-300 ease-out hover:scale-105 hover:bg-gray-300">
                                 Recipes
                             </a>
-                            @if(auth()->user() !== null)
-                                <a href="{{route('user.ingredients.index')}}"
+                            @if (auth()->user() !== null)
+                                <a href="{{ route('user.ingredients.index') }}"
                                     class="rounded-xl px-2 py-1 transition-all duration-300 ease-out hover:scale-105 hover:bg-gray-300">
                                     Ingredients
                                 </a>
-                                <a href="{{route('user.recipes.index')}}"
+                                <a href="{{ route('user.recipes.index') }}"
                                     class="rounded-xl px-2 py-1 transition-all duration-300 ease-out hover:scale-105 hover:bg-gray-300">
                                     My recipes
                                 </a>
@@ -64,8 +64,9 @@
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
 
-                                    <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                    <x-dropdown-link :href="route('logout')"
+                                        onclick="event.preventDefault();
+                                                                        this.closest('form').submit();">
                                         {{ __('Log Out') }}
                                     </x-dropdown-link>
                                 </form>
@@ -73,7 +74,7 @@
                         </x-dropdown>
                     </div>
                 @else
-                    <a href="{{route('login')}}"
+                    <a href="{{ route('login') }}"
                         class="rounded-xl px-2 py-1 transition-all duration-300 ease-out hover:scale-105 hover:bg-gray-300">
                         Log in
                     </a>
