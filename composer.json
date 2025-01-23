@@ -10,6 +10,7 @@
         "laravel/tinker": "^2.9",
         "spatie/laravel-ignition": "^2.9",
         "spatie/laravel-medialibrary": "^11.10",
+        "symfony/http-client": "^7.2",
         "symfony/postmark-mailer": "^7.1"
     },
     "require-dev": {
