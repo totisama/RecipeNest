@@ -19,6 +19,9 @@
                 <x-text-input id="password" class="block mt-1 w-full border-[#D4C4B1] rounded-lg shadow-sm"
                     type="password" name="password" required autocomplete="current-password" />
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                <a class="text-sm text-[#5B3A1F] hover:underline" href="{{ route('password.request') }}">
+                    {{ __('Forgot password?') }}
+                </a>
             </div>
 
             <div class="flex items-center mb-4">
