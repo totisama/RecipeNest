@@ -12,6 +12,8 @@ class WelcomeController extends Controller
 
         $recipes->load('steps', 'media');
 
+        $recipes->randomFunction();
+
         return view('welcome')->with('recipes', $recipes);
     }
 }
