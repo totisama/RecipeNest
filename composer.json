@@ -8,6 +8,8 @@
         "php": "^8.2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
+        "league/flysystem-aws-s3-v3": "^3.0",
+        "spatie/laravel-backup": "^9.2",
         "spatie/laravel-ignition": "^2.9",
         "spatie/laravel-medialibrary": "^11.10",
         "symfony/http-client": "^7.2",
