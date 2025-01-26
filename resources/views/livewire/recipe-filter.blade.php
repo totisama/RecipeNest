@@ -11,7 +11,7 @@
     <div style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));"
         class="grid gap-x-8 gap-y-6 place-items-center">
         @forelse ($recipes as $recipe)
-            <a href="{{ route('recipes.show', [$recipe['id']]) }}"
+            <a href="{{ route('partner-recipes.show', [$recipe['id']]) }}"
                 class='group overflow-hidden select-none max-w-80 pb-3 flex flex-col items-center gap-4 bg-white w-full px-5 rounded-3xl h-full hover:cursor-pointer'>
                 <img src="{{ $recipe['image'] ? $recipe['image'] : asset('images/placeholder.jpg') }}"
                     alt="{{ $recipe['title'] }} image"
