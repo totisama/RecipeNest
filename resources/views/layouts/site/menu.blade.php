@@ -17,6 +17,10 @@
                                 class="rounded-xl px-2 py-1 transition-all duration-300 ease-out hover:scale-105 hover:bg-gray-300">
                                 Recipes
                             </a>
+                            <a href="{{ route('partner-recipes') }}"
+                                class="rounded-xl px-2 py-1 transition-all duration-300 ease-out hover:scale-105 hover:bg-gray-300">
+                                Partner Recipes
+                            </a>
                             @if (auth()->user() !== null)
                                 <a href="{{ route('user.ingredients.index') }}"
                                     class="rounded-xl px-2 py-1 transition-all duration-300 ease-out hover:scale-105 hover:bg-gray-300">
