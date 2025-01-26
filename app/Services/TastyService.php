@@ -42,6 +42,26 @@ class TastyService
         return $recipes;
     }
 
+    public function filterRecipes(string $query): array
+    {
+        try {
+            $response = Http::withHeaders([
+                'x-rapidapi-key' => $this->apiKey,
+            ])->get($this->endpoint, ['q' => $query]);
+
+            if (! $response->successful()) {
+                throw new \Exception('Failed to fetch filtered recipes');
+            }
+        } catch (\Exception $e) {
+            return [];
+        }
+
+        $response = json_decode($response->getBody()->getContents());
+        $recipes = $this->formatData($response->results);
+
+        return $recipes;
+    }
+
     private function formatData(array $data): array
     {
         $recipes = [];
