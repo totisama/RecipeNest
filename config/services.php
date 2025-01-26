@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'tasty' => [
+        'list_endpoint' => 'https://tasty.p.rapidapi.com/recipes/list',
+        'key' => env('RAPID_API_KEY'),
+    ],
 ];

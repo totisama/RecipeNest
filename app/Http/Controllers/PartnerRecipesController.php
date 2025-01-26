@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\RecipesService;
+use App\Services\TastyService;
 
 class PartnerRecipesController extends Controller
 {
     public function __invoke()
     {
-        $instance = new RecipesService;
+        $instance = new TastyService;
         $recipes = $instance->getRecipes();
 
         return view('partner-recipes')->with('recipes', $recipes);
