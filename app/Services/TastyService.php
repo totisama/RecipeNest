@@ -6,7 +6,7 @@ use Http;
 
 enum Endpoints: string
 {
-    case SPECIFIC = 'specific_endpoint';
+    case SPECIFIC = 'info_endpoint';
     case LIST = 'list_endpoint';
 }
 
@@ -42,6 +42,26 @@ class TastyService
         return $recipes;
     }
 
+    public function getRecipe(int $id)
+    {
+        try {
+            $response = Http::withHeaders([
+                'x-rapidapi-key' => $this->apiKey,
+            ])->get($this->endpoint, ['id' => $id]);
+
+            if (! $response->successful()) {
+                throw new \Exception('Failed to fetch recipe');
+            }
+        } catch (\Exception $e) {
+            return null;
+        }
+
+        $response = json_decode($response->getBody()->getContents());
+        $recipe = $this->formatData([$response], true)[0];
+
+        return $recipe;
+    }
+
     public function filterRecipes(string $query): array
     {
         try {
@@ -62,12 +82,12 @@ class TastyService
         return $recipes;
     }
 
-    private function formatData(array $data): array
+    private function formatData(array $data, ?bool $extended = false): array
     {
         $recipes = [];
 
         foreach ($data as $recipe) {
-            $recipes[] = [
+            $formattedRecipe = [
                 'id' => $recipe->id,
                 'title' => $recipe->name,
                 'total_time' => $recipe->total_time_minutes ? $this->formatTime($recipe->total_time_minutes) : 'N/A',
@@ -75,6 +95,13 @@ class TastyService
                 'description' => $recipe->description,
                 'image' => $recipe->thumbnail_url,
             ];
+
+            if ($extended) {
+                $formattedRecipe['ingredients'] = $recipe->topics ?? [];
+                $formattedRecipe['instructions'] = $recipe->instructions ?? [];
+            }
+
+            $recipes[] = $formattedRecipe;
         }
 
         return $recipes;
