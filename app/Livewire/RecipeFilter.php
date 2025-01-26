@@ -23,7 +23,7 @@ class RecipeFilter extends Component
         $this->recipes = $recipes;
     }
 
-    public function updatedQuery()
+    public function fetchRecipes()
     {
         $this->recipes = $this->tastyService->filterRecipes($this->query);
     }

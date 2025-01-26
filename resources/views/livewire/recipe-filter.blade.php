@@ -1,7 +1,12 @@
 <div>
-    @livewireScripts
-    <input type="text" class="w-full p-2 mb-4 border border-gray-300 rounded-lg" placeholder="Search recipes..."
-        wire:model.debounce.500ms="query" />
+    <form wire:submit.prevent="fetchRecipes" class="flex gap-4 w-1/2 my-5">
+        <input type="text" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Search recipes..."
+            wire:model="query" />
+
+        <x-button type="submit" mode="primary">
+            Search
+        </x-button>
+    </form>
 
     <div style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));"
         class="grid gap-x-8 gap-y-6 place-items-center">
