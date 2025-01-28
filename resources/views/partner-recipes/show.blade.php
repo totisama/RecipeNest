@@ -20,6 +20,9 @@
                     </div>
                 </div>
             </div>
+            @if ($recipe['video'])
+                <livewire:toggle-video :video-url="$recipe['video']" />
+            @endif
         </div>
         <section class="mt-5">
             <h2 class="text-3xl font-semibold text-[#412913] mb-6">Instructions</h2>
