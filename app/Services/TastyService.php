@@ -97,8 +97,8 @@ class TastyService
             ];
 
             if ($extended) {
-                $formattedRecipe['ingredients'] = $recipe->topics ?? [];
                 $formattedRecipe['instructions'] = $recipe->instructions ?? [];
+                $formattedRecipe['components'] = $recipe?->sections[0]->components ?? [];
             }
 
             $recipes[] = $formattedRecipe;
