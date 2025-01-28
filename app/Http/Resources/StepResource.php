@@ -14,7 +14,7 @@ class StepResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'order' => $this->order,
-            'ingredients' => IngredientResource::collection($this->ingredients),
+            'ingredients' => StepIngredientResource::collection($this->ingredients),
         ];
     }
 }
