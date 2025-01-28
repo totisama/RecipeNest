@@ -14,6 +14,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         //
     })
+    ->withMiddleware(function (Middleware $middleware) {
+        $middleware->appendToGroup('api', [
+            \App\Http\Middleware\EnforceAcceptHeader::class,
+        ]);
+    })
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
