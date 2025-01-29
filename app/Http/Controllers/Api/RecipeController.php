@@ -12,9 +12,28 @@ use Illuminate\Http\Request;
 
 class RecipeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $recipes = Recipe::with('steps', 'steps.ingredients', 'steps.ingredients.media')->paginate(5);
+        $request->validate([
+            'value' => ['nullable', 'string', 'max:255'],
+            'size' => ['nullable', 'integer', 'min:1', 'max:50'],
+            'sort_by' => ['nullable', 'string', 'in:id,title,total_time'],
+            'sort_order' => ['nullable', 'string', 'in:asc,desc'],
+        ]);
+
+        $query = Recipe::with('steps', 'steps.ingredients', 'steps.ingredients.media');
+
+        if ($request->has('value')) {
+            $query->where('title', 'like', '%'.$request->query('value').'%');
+        }
+
+        $sortBy = $request->query('sort_by', 'id');
+        $sortOrder = $request->query('sort_order', 'asc');
+
+        $query->orderBy($sortBy, $sortOrder);
+
+        $size = $request->query('size', 10);
+        $recipes = $query->paginate((int) $size);
 
         return RecipeIndexResource::collection($recipes);
     }

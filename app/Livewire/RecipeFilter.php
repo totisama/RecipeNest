@@ -25,7 +25,11 @@ class RecipeFilter extends Component
 
     public function fetchRecipes()
     {
-        $this->recipes = $this->tastyService->filterRecipes($this->query);
+        $query = $this->query;
+
+        $this->recipes = cache()->remember($query, 3600, function () use ($query) {
+            return $this->tastyService->filterRecipes($query);
+        });
     }
 
     public function render()
