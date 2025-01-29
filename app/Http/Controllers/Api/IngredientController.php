@@ -9,9 +9,27 @@ use Illuminate\Http\Request;
 
 class IngredientController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $ingredients = Ingredient::paginate(10);
+        $request->validate([
+            'value' => ['nullable', 'string', 'max:255'],
+            'size' => ['nullable', 'integer', 'min:1', 'max:50'],
+            'sort_by' => ['nullable', 'string', 'in:id,name,created_at'],
+            'sort_order' => ['nullable', 'string', 'in:asc,desc'],
+        ]);
+
+        $query = Ingredient::query();
+
+        if ($request->has('value')) {
+            $query->where('name', 'like', '%'.$request->query('value').'%');
+        }
+
+        $sortBy = $request->query('sort_by', 'id');
+        $sortOrder = $request->query('sort_order', 'asc');
+        $query->orderBy($sortBy, $sortOrder);
+
+        $size = $request->query('size', 10);
+        $ingredients = $query->paginate((int) $size);
 
         return IngredientResource::collection($ingredients);
     }

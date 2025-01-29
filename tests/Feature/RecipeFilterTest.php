@@ -10,11 +10,10 @@ test('RecipeFilter component renders correctly', function () {
         ->assertSee('No recipes found');
 });
 
-
 test('RecipeFilter component shows recipes', function () {
     $recipes = [
         ['id' => 1, 'title' => 'Pasta', 'image' => null, 'steps' => 5, 'total_time' => 30],
-        ['id' => 2, 'title' => 'Salad', 'image' => null, 'steps' => 3, 'total_time' => 15]
+        ['id' => 2, 'title' => 'Salad', 'image' => null, 'steps' => 3, 'total_time' => 15],
     ];
 
     Livewire::test(RecipeFilter::class, ['recipes' => $recipes])
@@ -25,7 +24,6 @@ test('RecipeFilter component shows recipes', function () {
         ->assertSee('3 steps')
         ->assertSee('15');
 });
-
 
 test('RecipeFilter shows no recipes message for empty results', function () {
     Livewire::test(RecipeFilter::class, ['recipes' => []])
