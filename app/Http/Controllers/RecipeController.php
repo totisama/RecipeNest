@@ -16,6 +16,8 @@ class RecipeController extends Controller
 
         $recipe->load('steps', 'steps.ingredients', 'steps.ingredients.media');
 
+        $recipe->steps = $recipe->steps->sortBy('order');
+
         return view('recipes.show')->with('recipe', $recipe);
     }
 

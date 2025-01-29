@@ -18,7 +18,13 @@ class IngredientController extends Controller
 
     public function show(int $id)
     {
-        $ingredient = Ingredient::findOrFail($id);
+        $ingredient = Ingredient::find($id);
+
+        if (! $ingredient) {
+            return response()->json([
+                'message' => 'Ingredient not found!',
+            ], 404);
+        }
 
         return new IngredientResource($ingredient);
     }
@@ -27,15 +33,38 @@ class IngredientController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:100'],
-            // 'image' => ['required', 'file', 'image', 'max:1024'],
+            'image' => ['required', 'file', 'image', 'max:1024'],
         ]);
 
         $ingredient = Ingredient::create([
             'name' => $request->name,
         ]);
 
-        // $ingredient->addMediaFromRequest('image')->toMediaCollection('images');
+        $ingredient->addMediaFromRequest('image')->toMediaCollection('images');
 
         return new IngredientResource($ingredient);
+    }
+
+    public function destroy(string $id)
+    {
+        $ingredient = Ingredient::find($id);
+
+        if (! $ingredient) {
+            return response()->json([
+                'message' => 'Ingredient not found!',
+            ], 404);
+        }
+
+        if (count($ingredient->steps) > 0) {
+            return response()->json([
+                'message' => 'Ingredient is in use and cannot be deleted!',
+            ], 400);
+        }
+
+        $ingredient->delete();
+
+        return response()->json([
+            'message' => 'Ingredient deleted successfully!',
+        ]);
     }
 }
