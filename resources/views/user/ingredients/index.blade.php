@@ -23,7 +23,12 @@ $isSuccessOrError = $isSuccess || session()->has('error');
         class="mt-3 mb-10 grid gap-x-8 gap-y-6 place-items-center">
         @foreach ($ingredients as $ingredient)
             <article
-                class="h-auto overflow-hidden select-none pb-3 max-w-80 flex flex-col items-center gap-4 bg-white w-full px-5 rounded-3xl">
+                class="relative h-auto overflow-hidden select-none pb-3 max-w-80 flex flex-col items-center gap-4 bg-white w-full px-5 rounded-3xl">
+                <div class="absolute self-start left-2 top-0">
+                    <small>
+                        {{ $ingredient->id }}
+                    </small>
+                </div>
                 <img src="{{ $ingredient->media->first() !== null ? $ingredient->media->first()->getUrl() : asset('images/placeholder.jpg') }}"
                     alt="{{ $ingredient->name }} image"
                     class="rounded-3xl object-contain h-32 transition-transform duration-300 ease-out md:h-40 hover:scale-110" />
