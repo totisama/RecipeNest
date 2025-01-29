@@ -5,20 +5,37 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\IngredientResource;
 use App\Models\Ingredient;
+use Illuminate\Http\Request;
 
 class IngredientController extends Controller
 {
     public function index()
     {
-        $recipes = Ingredient::paginate(10);
+        $ingredients = Ingredient::paginate(10);
 
-        return IngredientResource::collection($recipes);
+        return IngredientResource::collection($ingredients);
     }
 
     public function show(int $id)
     {
-        $recipe = Ingredient::findOrFail($id);
+        $ingredient = Ingredient::findOrFail($id);
 
-        return new IngredientResource($recipe);
+        return new IngredientResource($ingredient);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:100'],
+            // 'image' => ['required', 'file', 'image', 'max:1024'],
+        ]);
+
+        $ingredient = Ingredient::create([
+            'name' => $request->name,
+        ]);
+
+        // $ingredient->addMediaFromRequest('image')->toMediaCollection('images');
+
+        return new IngredientResource($ingredient);
     }
 }
