@@ -8,12 +8,11 @@ use Illuminate\View\Component;
 
 class SiteLayout extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
+    public $includeAlpine;
+
+    public function __construct(?bool $noalpine = false)
     {
-        //
+        $this->includeAlpine = ! $noalpine;
     }
 
     /**
