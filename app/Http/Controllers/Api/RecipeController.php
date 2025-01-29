@@ -48,7 +48,7 @@ class RecipeController extends Controller
             'image' => ['required', 'file', 'image', 'max:1024'],
             'steps.*.title' => ['required', 'string'],
             'steps.*.description' => ['required', 'string'],
-            'steps.*.order' => ['required', 'numeric'],
+            'steps.*.step_number' => ['required', 'numeric'],
             'steps.*.ingredients' => ['required', 'array', 'min:1'],
             'steps.*.ingredients.*.id' => ['required', 'string', 'exists:ingredients,id'],
             'steps.*.ingredients.*.amount' => ['required', 'numeric', 'min:1'],
@@ -58,7 +58,7 @@ class RecipeController extends Controller
         $orders = array_column($request->steps, 'order');
         if (count($orders) !== count(array_unique($orders))) {
             return response()->json([
-                'message' => 'Step orders must be unique!',
+                'message' => 'Step number must be unique!',
             ], 422);
         }
 
@@ -77,7 +77,7 @@ class RecipeController extends Controller
             $step = Step::create([
                 'title' => $value['title'],
                 'description' => $value['description'],
-                'order' => $value['order'],
+                'order' => $value['step_number'],
                 'recipe_id' => $recipe->id,
             ]);
 
