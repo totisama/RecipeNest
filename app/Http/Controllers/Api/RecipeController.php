@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\RecipeIndexResource;
 use App\Http\Resources\RecipeShowResource;
+use App\Models\Ingredient;
 use App\Models\Recipe;
+use App\Models\Step;
+use Illuminate\Http\Request;
 
 class RecipeController extends Controller
 {
@@ -27,6 +30,62 @@ class RecipeController extends Controller
         }
 
         return new RecipeShowResource($recipe);
+    }
+
+    public function store(Request $request)
+    {
+        if ($request->has('steps') && is_string($request->steps)) {
+            $request->merge([
+                'steps' => json_decode($request->steps, true),
+            ]);
+        }
+
+        $request->validate([
+            'title' => ['required', 'string', 'max:50'],
+            'total_time' => ['required', 'numeric', 'min:1'],
+            'description' => ['required', 'string'],
+            'steps' => ['required', 'array', 'min:1'],
+            'image' => ['required', 'file', 'image', 'max:1024'],
+            'steps.*.title' => ['required', 'string'],
+            'steps.*.description' => ['required', 'string'],
+            'steps.*.order' => ['required', 'numeric'],
+            'steps.*.ingredients' => ['required', 'array', 'min:1'],
+            'steps.*.ingredients.*.id' => ['required', 'string', 'exists:ingredients,id'],
+            'steps.*.ingredients.*.amount' => ['required', 'numeric', 'min:1'],
+            'steps.*.ingredients.*.unit' => ['required', 'string', 'in:'.Ingredient::getUnits()->implode(',')],
+        ]);
+
+        $recipe = Recipe::create([
+            'title' => $request->title,
+            'total_time' => $request->total_time,
+            'description' => $request->description,
+            'user_id' => auth()->user()->id,
+        ]);
+
+        $recipe->addMediaFromRequest('image')->toMediaCollection('images');
+
+        $steps = $request->steps;
+
+        foreach ($steps as $key => $value) {
+            $step = Step::create([
+                'title' => $value['title'],
+                'description' => $value['description'],
+                'order' => $value['order'],
+                'recipe_id' => $recipe->id,
+            ]);
+
+            foreach ($value['ingredients'] as $ingredient) {
+                $step->ingredients()->attach($ingredient['id'], [
+                    'amount' => $ingredient['amount'],
+                    'unit' => $ingredient['unit'],
+                ]);
+            }
+        }
+
+        return response()->json([
+            'message' => 'Recipe created successfully!',
+            'recipe' => new RecipeShowResource($recipe),
+        ]);
     }
 
     public function destroy(string $id)
