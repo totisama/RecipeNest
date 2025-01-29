@@ -55,6 +55,13 @@ class RecipeController extends Controller
             'steps.*.ingredients.*.unit' => ['required', 'string', 'in:'.Ingredient::getUnits()->implode(',')],
         ]);
 
+        $orders = array_column($request->steps, 'order');
+        if (count($orders) !== count(array_unique($orders))) {
+            return response()->json([
+                'message' => 'Step orders must be unique!',
+            ], 422);
+        }
+
         $recipe = Recipe::create([
             'title' => $request->title,
             'total_time' => $request->total_time,
