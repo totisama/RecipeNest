@@ -36,6 +36,15 @@ class IngredientController extends Controller
             'image' => ['required', 'file', 'image', 'max:1024'],
         ]);
 
+        $existingIngredient = Ingredient::where('name', 'like', '%'.$request->name.'%')->first();
+
+        if ($existingIngredient) {
+            return response()->json([
+                'message' => 'Ingredient already exists!',
+                'ingredient' => new IngredientResource($existingIngredient),
+            ], 406);
+        }
+
         $ingredient = Ingredient::create([
             'name' => $request->name,
         ]);
